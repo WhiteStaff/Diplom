@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DataAccess.Enums;
 
 namespace DataAccess.DbModels
 {
@@ -13,7 +14,7 @@ namespace DataAccess.DbModels
         public string Name { get; set; }
 
         [ForeignKey("Company")]
-        public Guid CompanyId { get; set; }
+        public Guid? CompanyId { get; set; }
 
         public Company Company { get; set; }
 
@@ -22,5 +23,7 @@ namespace DataAccess.DbModels
         public string Password { get; set; }
 
         public IList<Inspection> Inspections { get; set; }
+
+        public UserRole Role { get; set; }
     }
 }

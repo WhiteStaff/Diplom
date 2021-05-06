@@ -5,11 +5,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{DD7D0100-E9A0-4932-A727-0B0D65A7002D}</ProjectGuid>
+    <ProjectGuid>{A4835486-6FBD-4AAA-81BE-F58DA1B9A743}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DataAccess</RootNamespace>
-    <AssemblyName>DataAccess</AssemblyName>
+    <RootNamespace>OAuth</RootNamespace>
+    <AssemblyName>OAuth</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -40,6 +40,21 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Owin, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.4.1.1\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.4.1.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=4.1.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.4.1.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -51,53 +66,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DbModels\Category.cs" />
-    <Compile Include="DbModels\Company.cs" />
-    <Compile Include="DbModels\Document.cs" />
-    <Compile Include="DbModels\Employee.cs" />
-    <Compile Include="DbModels\Evaluation.cs" />
-    <Compile Include="DbModels\Event.cs" />
-    <Compile Include="DbModels\Inspection.cs" />
-    <Compile Include="DbModels\Requirement.cs" />
-    <Compile Include="Enums\CompanyRole.cs" />
-    <Compile Include="Enums\InspectionStatus.cs" />
-    <Compile Include="Enums\Score.cs" />
-    <Compile Include="Enums\UserRole.cs" />
-    <Compile Include="ISControlDbContext.cs" />
-    <Compile Include="Migrations\202105061118583_FirstTables.cs" />
-    <Compile Include="Migrations\202105061118583_FirstTables.designer.cs">
-      <DependentUpon>202105061118583_FirstTables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105061349080_DefaultSchemaFinished.cs" />
-    <Compile Include="Migrations\202105061349080_DefaultSchemaFinished.designer.cs">
-      <DependentUpon>202105061349080_DefaultSchemaFinished.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202105061548456_AddUserRoles.cs" />
-    <Compile Include="Migrations\202105061548456_AddUserRoles.designer.cs">
-      <DependentUpon>202105061548456_AddUserRoles.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="AuthorizationServerProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RefreshTokenProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{dd7d0100-e9a0-4932-a727-0b0d65a7002d}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\202105061118583_FirstTables.resx">
-      <DependentUpon>202105061118583_FirstTables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105061349080_DefaultSchemaFinished.resx">
-      <DependentUpon>202105061349080_DefaultSchemaFinished.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202105061548456_AddUserRoles.resx">
-      <DependentUpon>202105061548456_AddUserRoles.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

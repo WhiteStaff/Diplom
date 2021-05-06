@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diplom", "Diplom\Diplom.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{DD7D0100-E9A0-4932-A727-0B0D65A7002D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth", "OAuth\OAuth.csproj", "{A4835486-6FBD-4AAA-81BE-F58DA1B9A743}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{DD7D0100-E9A0-4932-A727-0B0D65A7002D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD7D0100-E9A0-4932-A727-0B0D65A7002D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD7D0100-E9A0-4932-A727-0B0D65A7002D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4835486-6FBD-4AAA-81BE-F58DA1B9A743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4835486-6FBD-4AAA-81BE-F58DA1B9A743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4835486-6FBD-4AAA-81BE-F58DA1B9A743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4835486-6FBD-4AAA-81BE-F58DA1B9A743}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

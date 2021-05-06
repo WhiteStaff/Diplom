@@ -3,6 +3,7 @@ using System.Web.Http;
 
 namespace Diplom.Controllers
 {
+    [Authorize]
     [RoutePrefix("api/test")]
     public class testController : ApiController
     {
