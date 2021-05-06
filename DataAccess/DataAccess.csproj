@@ -51,12 +51,43 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DbModels\Category.cs" />
+    <Compile Include="DbModels\Company.cs" />
+    <Compile Include="DbModels\Document.cs" />
+    <Compile Include="DbModels\Employee.cs" />
+    <Compile Include="DbModels\Evaluation.cs" />
+    <Compile Include="DbModels\Event.cs" />
+    <Compile Include="DbModels\Inspection.cs" />
+    <Compile Include="DbModels\Requirement.cs" />
+    <Compile Include="Enums\CompanyRole.cs" />
+    <Compile Include="Enums\InspectionStatus.cs" />
+    <Compile Include="Enums\Score.cs" />
     <Compile Include="ISControlDbContext.cs" />
+    <Compile Include="Migrations\202105061118583_FirstTables.cs" />
+    <Compile Include="Migrations\202105061118583_FirstTables.designer.cs">
+      <DependentUpon>202105061118583_FirstTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105061349080_DefaultSchemaFinished.cs" />
+    <Compile Include="Migrations\202105061349080_DefaultSchemaFinished.designer.cs">
+      <DependentUpon>202105061349080_DefaultSchemaFinished.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202105061118583_FirstTables.resx">
+      <DependentUpon>202105061118583_FirstTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105061349080_DefaultSchemaFinished.resx">
+      <DependentUpon>202105061349080_DefaultSchemaFinished.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
