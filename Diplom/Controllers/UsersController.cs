@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Threading.Tasks;
+using System.Web.Http;
 
 namespace Diplom.Controllers
 {
@@ -6,7 +7,10 @@ namespace Diplom.Controllers
     [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
-        //[HttpPost, Route("create")]
-        //public 
+        [HttpPost, Route("create")]
+        public async Task<string> Create()
+        {
+            return "123";
+        }
     }
 }

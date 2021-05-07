@@ -21,5 +21,7 @@ namespace DataAccess
         public DbSet<Event> Event { get; set; }
 
         public DbSet<Inspection> Inspection { get; set; }
+
+        public DbSet<RefreshToken> RefreshTokens { get; set; }
     }
 }

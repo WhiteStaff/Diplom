@@ -51,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataAccess\Implementations\ITokenRepository.cs" />
+    <Compile Include="DataAccess\Implementations\UserRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\IUserRepository.cs" />
+    <Compile Include="DataAccess\Interfaces\TokenRepository.cs" />
     <Compile Include="DbModels\Category.cs" />
     <Compile Include="DbModels\Company.cs" />
     <Compile Include="DbModels\Document.cs" />
@@ -58,12 +62,10 @@
     <Compile Include="DbModels\Evaluation.cs" />
     <Compile Include="DbModels\Event.cs" />
     <Compile Include="DbModels\Inspection.cs" />
+    <Compile Include="DbModels\RefreshToken.cs" />
     <Compile Include="DbModels\Requirement.cs" />
-    <Compile Include="Enums\CompanyRole.cs" />
-    <Compile Include="Enums\InspectionStatus.cs" />
-    <Compile Include="Enums\Score.cs" />
-    <Compile Include="Enums\UserRole.cs" />
     <Compile Include="ISControlDbContext.cs" />
+    <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Migrations\202105061118583_FirstTables.cs" />
     <Compile Include="Migrations\202105061118583_FirstTables.designer.cs">
       <DependentUpon>202105061118583_FirstTables.cs</DependentUpon>
@@ -75,6 +77,10 @@
     <Compile Include="Migrations\202105061548456_AddUserRoles.cs" />
     <Compile Include="Migrations\202105061548456_AddUserRoles.designer.cs">
       <DependentUpon>202105061548456_AddUserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105071231259_AddTokenTable.cs" />
+    <Compile Include="Migrations\202105071231259_AddTokenTable.designer.cs">
+      <DependentUpon>202105071231259_AddTokenTable.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -96,6 +102,15 @@
     <EmbeddedResource Include="Migrations\202105061548456_AddUserRoles.resx">
       <DependentUpon>202105061548456_AddUserRoles.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105071231259_AddTokenTable.resx">
+      <DependentUpon>202105071231259_AddTokenTable.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{3AF52FF9-8656-4A0A-AE99-F6F10F08BD52}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -8,6 +8,8 @@ using Owin;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dependencies;
+using DataAccess.DataAccess.Implementations;
+using DataAccess.DataAccess.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
@@ -39,6 +41,8 @@ namespace Diplom
                             || t.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase)));
             services.AddSingleton<IOAuthAuthorizationServerProvider, AuthorizationServerProvider>();
             services.AddSingleton<IAuthenticationTokenProvider, RefreshTokenProvider>();
+            services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<ITokenRepository, TokenRepository>();
         }
 
         private void ConfigureOAuth(IAppBuilder app, DefaultDependencyResolver resolver)
