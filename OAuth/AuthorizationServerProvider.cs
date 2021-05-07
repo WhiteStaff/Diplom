@@ -20,7 +20,6 @@ namespace OAuth
             {
                 try
                 {
-                    var form = await context.Request.ReadFormAsync();
                     var user = db.Employee.FirstOrDefault(x =>
                         x.Email ==  context.UserName && x.Password == context.Password);
                     var identity = new ClaimsIdentity(context.Options.AuthenticationType);
@@ -34,9 +33,12 @@ namespace OAuth
             }
         }
 
-        public override Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
+        public override async Task GrantRefreshToken(OAuthGrantRefreshTokenContext context)
         {
-            return base.GrantRefreshToken(context);
+            var email = context.Ticket.Identity.FindFirst(ClaimTypes.Email)?.Value;
+            var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+            identity.AddClaim(new Claim(ClaimTypes.Email, email));
+            context.Validated(identity);
         }
     }
 }
