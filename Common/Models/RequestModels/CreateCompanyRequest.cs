@@ -1,12 +1,9 @@
-﻿using System;
-using Common.Models.Enums;
+﻿using Common.Models.Enums;
 
-namespace Models
+namespace Common.Models.RequestModels
 {
-    public class CompanyModel
+    public class CreateCompanyRequest
     {
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
         public string Description { get; set; }

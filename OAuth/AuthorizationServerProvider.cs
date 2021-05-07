@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using DataAccess.DataAccess.Interfaces;
+using Common.Helpers;
+using DataAccess.DataAccess.UserRepository;
 using Microsoft.Owin.Security.OAuth;
 
 namespace OAuth
 {
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
-        private readonly IUserRepository userRepository;
+        private readonly IUserRepository _userRepository;
 
         public AuthorizationServerProvider(IUserRepository userRepository)
         {
-            this.userRepository = userRepository;
+            this._userRepository = userRepository;
         }
 
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
@@ -24,10 +25,14 @@ namespace OAuth
         {
             try
             {
-                var user = userRepository.GetUser(context.UserName, context.Password);
-                var identity = new ClaimsIdentity(context.Options.AuthenticationType);
-                identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
-                context.Validated(identity);
+                var user = _userRepository.GetUser(context.UserName, context.Password.HashPassword());
+                if (user != null)
+                {
+                    var identity = new ClaimsIdentity(context.Options.AuthenticationType);
+                    identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
+                    identity.AddClaim(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
+                    context.Validated(identity);
+                }
             }
             catch (Exception e)
             {

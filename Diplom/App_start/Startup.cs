@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Threading;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dependencies;
-using DataAccess.DataAccess.Implementations;
-using DataAccess.DataAccess.Interfaces;
+using BizRules.CompanyBizRules;
+using BizRules.UsersBizRules;
+using DataAccess.DataAccess.CompanyRepository;
+using DataAccess.DataAccess.TokenRepository;
+using DataAccess.DataAccess.UserRepository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin.Security.Infrastructure;
 using Microsoft.Owin.Security.OAuth;
@@ -43,6 +44,9 @@ namespace Diplom
             services.AddSingleton<IAuthenticationTokenProvider, RefreshTokenProvider>();
             services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ITokenRepository, TokenRepository>();
+            services.AddSingleton<IUsersBizRules, UsersBizRules>();
+            services.AddSingleton<ICompanyBizRules, CompanyBizRules>();
+            services.AddSingleton<ICompanyRepository, CompanyRepository>();
         }
 
         private void ConfigureOAuth(IAppBuilder app, DefaultDependencyResolver resolver)
@@ -79,26 +83,26 @@ namespace Diplom
 
     public class DefaultDependencyResolver : IDependencyResolver
     {
-        protected IServiceProvider serviceProvider;
+        protected IServiceProvider ServiceProvider;
 
         public DefaultDependencyResolver(IServiceProvider serviceProvider)
         {
-            this.serviceProvider = serviceProvider;
+            ServiceProvider = serviceProvider;
         }
 
         public object GetService(Type serviceType)
         {
-            return this.serviceProvider.GetService(serviceType);
+            return ServiceProvider.GetService(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return this.serviceProvider.GetServices(serviceType);
+            return ServiceProvider.GetServices(serviceType);
         }
 
         public IDependencyScope BeginScope()
         {
-            return new DefaultDependencyResolver(this.serviceProvider.CreateScope().ServiceProvider);
+            return new DefaultDependencyResolver(ServiceProvider.CreateScope().ServiceProvider);
         }
 
         public void Dispose()

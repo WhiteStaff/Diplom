@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using DataAccess.DbModels;
 
-namespace DataAccess.DataAccess.Implementations
+namespace DataAccess.DataAccess.TokenRepository
 {
     public interface ITokenRepository
     {

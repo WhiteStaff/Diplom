@@ -1,7 +1,8 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using Common.Models.Enums;
 
-namespace Diplom.Models
+namespace Common.Models.RequestModels
 {
     public class CreateUserRequest
     {
@@ -9,12 +10,14 @@ namespace Diplom.Models
         public string Name { get; set; }
 
         [Required]
-        public Guid CompanyId { get; set; }
+        public Guid? CompanyId { get; set; }
 
         [Required]
         public string Email { get; set; }
 
         [Required]
         public string Password { get; set; }
+
+        public UserRole UserRole { get; set; }
     }
 }

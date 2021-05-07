@@ -1,4 +1,4 @@
-﻿namespace DataAccess.Enums
+﻿namespace Common.Models.Enums
 {
     public enum UserRole
     {

@@ -10,8 +10,10 @@ namespace DataAccess.Mappers
             return new UserModel
             {
                 Id = user.Id,
+                Name = user.Name,
                 CompanyId = user.CompanyId,
-                Email = user.Email
+                Email = user.Email,
+                UserRole = user.Role
             };
         }
     }

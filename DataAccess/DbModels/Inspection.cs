@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using DataAccess.Enums;
+using Common.Models.Enums;
 
 namespace DataAccess.DbModels
 {

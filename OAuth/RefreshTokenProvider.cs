@@ -2,7 +2,7 @@
 using System.Configuration;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using DataAccess.DataAccess.Implementations;
+using DataAccess.DataAccess.TokenRepository;
 using DataAccess.DbModels;
 using Microsoft.Owin.Security.Infrastructure;
 
@@ -20,7 +20,7 @@ namespace OAuth
 
         public void Create(AuthenticationTokenCreateContext context)
         {
-            throw new System.NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public async Task CreateAsync(AuthenticationTokenCreateContext context)
@@ -38,7 +38,7 @@ namespace OAuth
 
         public void Receive(AuthenticationTokenReceiveContext context)
         {
-            throw new System.NotImplementedException();
+            throw new NotSupportedException();
         }
 
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)

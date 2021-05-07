@@ -11,16 +11,24 @@ namespace DataAccess
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Inspection>().HasRequired(x => x.Customer).WithMany(x => x.Inspections).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Inspection>()
+                .HasRequired(x => x.Customer)
+                .WithMany(x => x.Inspections)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Company>()
+                .HasMany(x => x.Employees)
+                .WithOptional(x => x.Company)
+                .WillCascadeOnDelete(true);
         }
 
-        public DbSet<Company> Company { get; set; }
+        public DbSet<Company> Companies { get; set; }
 
-        public DbSet<Employee> Employee { get; set; }
+        public DbSet<Employee> Employees { get; set; }
 
-        public DbSet<Event> Event { get; set; }
+        public DbSet<Event> Events { get; set; }
 
-        public DbSet<Inspection> Inspection { get; set; }
+        public DbSet<Inspection> Inspections { get; set; }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
     }

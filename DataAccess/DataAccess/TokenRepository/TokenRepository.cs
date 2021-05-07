@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using DataAccess.DataAccess.Implementations;
 using DataAccess.DbModels;
 
-namespace DataAccess.DataAccess.Interfaces
+namespace DataAccess.DataAccess.TokenRepository
 {
     public class TokenRepository : ITokenRepository
     {

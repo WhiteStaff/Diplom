@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace DataAccess.Enums
+namespace Common.Models.Enums
 {
     public enum Score
     {

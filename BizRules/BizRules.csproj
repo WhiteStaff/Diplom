@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3AF52FF9-8656-4A0A-AE99-F6F10F08BD52}</ProjectGuid>
+    <ProjectGuid>{77063B9A-6115-499B-8DA5-A7E4661A9291}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Common</RootNamespace>
-    <AssemblyName>Common</AssemblyName>
+    <RootNamespace>BizRules</RootNamespace>
+    <AssemblyName>BizRules</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,11 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,22 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Helpers\PasswordHelper.cs" />
-    <Compile Include="Models\CompanyModel.cs" />
-    <Compile Include="Models\Enums\CompanyRole.cs" />
-    <Compile Include="Models\Enums\InspectionStatus.cs" />
-    <Compile Include="Models\Enums\Score.cs" />
-    <Compile Include="Models\Enums\UserRole.cs" />
-    <Compile Include="Models\Mappers\CompanyMapper.cs" />
-    <Compile Include="Models\Mappers\UserMapper.cs" />
-    <Compile Include="Models\RequestModels\CreateCompanyRequest.cs" />
-    <Compile Include="Models\RequestModels\CreateUserRequest.cs" />
-    <Compile Include="Models\UserFullModel.cs" />
+    <Compile Include="CompanyBizRules\CompanyBizRules.cs" />
+    <Compile Include="CompanyBizRules\ICompanyBizRules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\UserModel.cs" />
+    <Compile Include="UsersBizRules\IUsersBizRules.cs" />
+    <Compile Include="UsersBizRules\UsersBizRules.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{3af52ff9-8656-4a0a-ae99-f6f10f08bd52}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DataAccess\DataAccess.csproj">
+      <Project>{dd7d0100-e9a0-4932-a727-0b0d65a7002d}</Project>
+      <Name>DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

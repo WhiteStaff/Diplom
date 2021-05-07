@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAuth", "OAuth\OAuth.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{3AF52FF9-8656-4A0A-AE99-F6F10F08BD52}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BizRules", "BizRules\BizRules.csproj", "{77063B9A-6115-499B-8DA5-A7E4661A9291}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{3AF52FF9-8656-4A0A-AE99-F6F10F08BD52}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AF52FF9-8656-4A0A-AE99-F6F10F08BD52}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AF52FF9-8656-4A0A-AE99-F6F10F08BD52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77063B9A-6115-499B-8DA5-A7E4661A9291}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77063B9A-6115-499B-8DA5-A7E4661A9291}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77063B9A-6115-499B-8DA5-A7E4661A9291}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77063B9A-6115-499B-8DA5-A7E4661A9291}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
