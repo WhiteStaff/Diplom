@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BizRules.UsersBizRules;
@@ -21,30 +23,86 @@ namespace Diplom.Controllers
             _usersBizRules = usersBizRules;
         }
 
-        [HttpPost, Route("create")]
-        [JwtAuthorize(UserRole.Admin)]
-        public async Task<UserModel> CreateUser(CreateUserRequest request)
+        [HttpPost, Route("createUser")]
+        [JwtAuthorize(UserRole.Admin, UserRole.CompanyAdmin)]
+        public async Task<object> CreateUser(CreateUserRequest request)
         {
-            return await _usersBizRules.CreateUser(request);
+            try
+            {
+                return await _usersBizRules.CreateUser(request);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("createCompanyAdmin")]
+        [JwtAuthorize(UserRole.Admin, UserRole.CompanyAdmin)]
+        public async Task<object> CreateCompanyAdminUser(CreateUserRequest request)
+        {
+            try
+            {
+                return await _usersBizRules.CreateCompanyAdminUser(request);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("createAdmin")]
+        [JwtAuthorize(UserRole.Admin)]
+        public async Task<object> CreateAdminUser(CreateUserRequest request)
+        {
+            try
+            {
+                return await _usersBizRules.CreateAdminUser(request);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
 
         [HttpGet, Route("{id}")]
-        public async Task<UserModel> GetUser(Guid id)
+        public async Task<object> GetUser(Guid id)
         {
-            return await _usersBizRules.GetUser(id);
+            try
+            {
+                return await _usersBizRules.GetUser(id);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
 
         [HttpDelete, Route("{id}")]
-        public async Task<IHttpActionResult> Delete(Guid id)
+        public async Task<object> Delete(Guid id)
         {
-            await _usersBizRules.DeleteUser(id);
-            return Ok();
+            try
+            {
+                await _usersBizRules.DeleteUser(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
 
         [HttpGet, Route("list")]
-        public async Task<List<UserModel>> GetCompanyEmployees(Guid companyId)
+        public async Task<object> GetCompanyEmployees(Guid companyId)
         {
-            return await _usersBizRules.GetCompanyUsers(companyId);
+            try
+            {
+                return await _usersBizRules.GetCompanyUsers(companyId);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
     }
 }

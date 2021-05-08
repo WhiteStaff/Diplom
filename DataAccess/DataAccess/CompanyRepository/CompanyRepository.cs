@@ -62,5 +62,13 @@ namespace DataAccess.DataAccess.CompanyRepository
                 await context.SaveChangesAsync();
             }
         }
+
+        public async Task<CompanyModel> GetCompany(Guid companyId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                return (await context.Companies.FirstOrDefaultAsync(x => x.Id == companyId))?.ToModel();
+            }
+        }
     }
 }

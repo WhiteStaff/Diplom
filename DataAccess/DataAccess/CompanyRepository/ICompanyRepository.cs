@@ -13,5 +13,7 @@ namespace DataAccess.DataAccess.CompanyRepository
         Task<List<CompanyModel>> GetCompanies(CompanyRole role);
 
         Task DeleteCompany(Guid id);
+
+        Task<CompanyModel> GetCompany(Guid companyId);
     }
 }

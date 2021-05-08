@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Web.Http;
 using System.Web.Http.Controllers;
@@ -8,11 +9,11 @@ namespace OAuth
 {
     public class JwtAuthorize : AuthorizeAttribute
     {
-        private readonly UserRole _requiredRole;
+        private readonly UserRole[] _requiredRoles;
 
-        public JwtAuthorize(UserRole role)
+        public JwtAuthorize(params UserRole[] roles)
         {
-            _requiredRole = role;
+            _requiredRoles = roles;
         }
 
         protected override bool IsAuthorized(HttpActionContext actionContext)
@@ -24,7 +25,7 @@ namespace OAuth
                 return false;
             }
 
-            return role == _requiredRole.ToString();
+            return _requiredRoles.Select(x => x.ToString()).Contains(role);
         }
 
         private static ClaimsPrincipal GetClaims(HttpActionContext actionContext)

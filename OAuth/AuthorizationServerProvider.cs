@@ -31,6 +31,7 @@ namespace OAuth
                     var identity = new ClaimsIdentity(context.Options.AuthenticationType);
                     identity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
                     identity.AddClaim(new Claim(ClaimTypes.Role, user.UserRole.ToString()));
+                    identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
                     context.Validated(identity);
                 }
             }

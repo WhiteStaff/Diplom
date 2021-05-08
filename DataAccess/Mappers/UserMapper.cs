@@ -16,5 +16,17 @@ namespace DataAccess.Mappers
                 UserRole = user.Role
             };
         }
+
+        public static Employee Map(this UserModel user)
+        {
+            return new Employee
+            {
+                Id = user.Id,
+                Name = user.Name,
+                CompanyId = user.CompanyId,
+                Email = user.Email,
+                Role = user.UserRole
+            };
+        }
     }
 }

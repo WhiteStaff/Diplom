@@ -10,6 +10,10 @@ namespace BizRules.UsersBizRules
     {
         Task<UserModel> CreateUser(CreateUserRequest request);
 
+        Task<UserModel> CreateCompanyAdminUser(CreateUserRequest request);
+
+        Task<UserModel> CreateAdminUser(CreateUserRequest request);
+
         Task<UserModel> GetUser(Guid id);
 
         Task DeleteUser(Guid id);

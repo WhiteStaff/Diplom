@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Models.Enums;
 using DataAccess.DbModels;
 using DataAccess.Mappers;
 using Models;
@@ -36,6 +37,67 @@ namespace DataAccess.DataAccess.UserRepository
                 if (!userExists)
                 {
                     model.Id = Guid.NewGuid();
+                    model.UserRole = UserRole.User;
+                    var employee = new Employee
+                    {
+                        Id = model.Id,
+                        Name = model.Name,
+                        CompanyId = model.CompanyId,
+                        Email = model.Email,
+                        Password = model.Password,
+                        Role = model.UserRole
+                    };
+                    context.Employees.Add(employee);
+                    await context.SaveChangesAsync();
+
+                    return model;
+                }
+                else
+                {
+                    throw new DuplicateNameException($"User with email {model.Email} already exists");
+                }
+            }
+        }
+
+        public async Task<UserFullModel> CreateCompanyAdminUser(UserFullModel model)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var userExists = context.Employees.FirstOrDefault(x => x.Email == model.Email) != null;
+                if (!userExists)
+                {
+                    model.Id = Guid.NewGuid();
+                    model.UserRole = UserRole.CompanyAdmin;
+                    var employee = new Employee
+                    {
+                        Id = model.Id,
+                        Name = model.Name,
+                        CompanyId = model.CompanyId,
+                        Email = model.Email,
+                        Password = model.Password,
+                        Role = model.UserRole
+                    };
+                    context.Employees.Add(employee);
+                    await context.SaveChangesAsync();
+
+                    return model;
+                }
+                else
+                {
+                    throw new DuplicateNameException($"User with email {model.Email} already exists");
+                }
+            }
+        }
+
+        public async Task<UserFullModel> CreateAdminUser(UserFullModel model)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var userExists = context.Employees.FirstOrDefault(x => x.Email == model.Email) != null;
+                if (!userExists)
+                {
+                    model.Id = Guid.NewGuid();
+                    model.UserRole = UserRole.Admin;
                     var employee = new Employee
                     {
                         Id = model.Id,

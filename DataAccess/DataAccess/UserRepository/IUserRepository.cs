@@ -13,6 +13,10 @@ namespace DataAccess.DataAccess.UserRepository
 
         Task<UserFullModel> CreateUser(UserFullModel model);
 
+        Task<UserFullModel> CreateCompanyAdminUser(UserFullModel model);
+
+        Task<UserFullModel> CreateAdminUser(UserFullModel model);
+
         Task DeleteUser(Guid id);
 
         Task<List<UserModel>> GetCompanyUsers(Guid companyId);

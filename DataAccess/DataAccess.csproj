@@ -53,6 +53,8 @@
   <ItemGroup>
     <Compile Include="DataAccess\CompanyRepository\CompanyRepository.cs" />
     <Compile Include="DataAccess\CompanyRepository\ICompanyRepository.cs" />
+    <Compile Include="DataAccess\InspectionRepository\IInspectionRepository.cs" />
+    <Compile Include="DataAccess\InspectionRepository\InspectionRepository.cs" />
     <Compile Include="DataAccess\TokenRepository\ITokenRepository.cs" />
     <Compile Include="DataAccess\UserRepository\UserRepository.cs" />
     <Compile Include="DataAccess\UserRepository\IUserRepository.cs" />
@@ -68,6 +70,7 @@
     <Compile Include="DbModels\Requirement.cs" />
     <Compile Include="ISControlDbContext.cs" />
     <Compile Include="Mappers\CompanyMapper.cs" />
+    <Compile Include="Mappers\InspectionMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Migrations\202105061118583_FirstTables.cs" />
     <Compile Include="Migrations\202105061118583_FirstTables.designer.cs">
@@ -88,6 +91,14 @@
     <Compile Include="Migrations\202105071606038_cascadeDelete.cs" />
     <Compile Include="Migrations\202105071606038_cascadeDelete.designer.cs">
       <DependentUpon>202105071606038_cascadeDelete.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105081015073_NullableFinalScore.cs" />
+    <Compile Include="Migrations\202105081015073_NullableFinalScore.designer.cs">
+      <DependentUpon>202105081015073_NullableFinalScore.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105081616337_AddedNullability.cs" />
+    <Compile Include="Migrations\202105081616337_AddedNullability.designer.cs">
+      <DependentUpon>202105081616337_AddedNullability.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +125,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105071606038_cascadeDelete.resx">
       <DependentUpon>202105071606038_cascadeDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105081015073_NullableFinalScore.resx">
+      <DependentUpon>202105081015073_NullableFinalScore.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105081616337_AddedNullability.resx">
+      <DependentUpon>202105081616337_AddedNullability.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

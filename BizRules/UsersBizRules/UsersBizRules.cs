@@ -21,7 +21,30 @@ namespace BizRules.UsersBizRules
         public async Task<UserModel> CreateUser(CreateUserRequest request)
         {
             request.Password = request.Password.HashPassword();
+            if (request.CompanyId == null)
+            {
+                throw new Exception("User should have company.");
+            }
+
             return (await _userRepository.CreateUser(request.ToFullModel())).ToBriefModel();
+        }
+
+        public async Task<UserModel> CreateCompanyAdminUser(CreateUserRequest request)
+        {
+            request.Password = request.Password.HashPassword();
+            if (request.CompanyId == null)
+            {
+                throw new Exception("User should have company.");
+            }
+
+            return (await _userRepository.CreateCompanyAdminUser(request.ToFullModel())).ToBriefModel();
+        }
+
+        public async Task<UserModel> CreateAdminUser(CreateUserRequest request)
+        {
+            request.Password = request.Password.HashPassword();
+            request.CompanyId = null;
+            return (await _userRepository.CreateAdminUser(request.ToFullModel())).ToBriefModel();
         }
 
         public async Task<UserModel> GetUser(Guid id)

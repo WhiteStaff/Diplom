@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using Microsoft.Owin;
 using Owin;
@@ -7,8 +8,10 @@ using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Dependencies;
 using BizRules.CompanyBizRules;
+using BizRules.InspectionBizRules;
 using BizRules.UsersBizRules;
 using DataAccess.DataAccess.CompanyRepository;
+using DataAccess.DataAccess.InspectionRepository;
 using DataAccess.DataAccess.TokenRepository;
 using DataAccess.DataAccess.UserRepository;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,16 +45,18 @@ namespace Diplom
                             || t.Name.EndsWith("Controller", StringComparison.OrdinalIgnoreCase)));
             services.AddSingleton<IOAuthAuthorizationServerProvider, AuthorizationServerProvider>();
             services.AddSingleton<IAuthenticationTokenProvider, RefreshTokenProvider>();
-            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<ITokenRepository, TokenRepository>();
+            services.AddSingleton<IUserRepository, UserRepository>();
             services.AddSingleton<IUsersBizRules, UsersBizRules>();
             services.AddSingleton<ICompanyBizRules, CompanyBizRules>();
             services.AddSingleton<ICompanyRepository, CompanyRepository>();
+            services.AddSingleton<IInspectionBizRules, InspectionBizRules>();
+            services.AddSingleton<IInspectionRepository, InspectionRepository>();
         }
 
         private void ConfigureOAuth(IAppBuilder app, DefaultDependencyResolver resolver)
         {
-            var tokenExpireTime = "10:00:00";
+            var tokenExpireTime = ConfigurationManager.AppSettings["Security.AccessTokenLifetime"];
             var oAuthServerOptions = new OAuthAuthorizationServerOptions
             {
                 AllowInsecureHttp = true,

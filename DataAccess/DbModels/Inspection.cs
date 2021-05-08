@@ -16,11 +16,11 @@ namespace DataAccess.DbModels
 
         public Company Customer { get; set; }
 
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }
 
-        public Score FinalScore { get; set; }
+        public Score? FinalScore { get; set; }
 
         public IList<Employee> Assessors { get; set; }
 

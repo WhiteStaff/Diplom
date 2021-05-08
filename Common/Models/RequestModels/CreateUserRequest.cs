@@ -17,7 +17,5 @@ namespace Common.Models.RequestModels
 
         [Required]
         public string Password { get; set; }
-
-        public UserRole UserRole { get; set; }
     }
 }

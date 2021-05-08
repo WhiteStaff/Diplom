@@ -14,8 +14,7 @@ namespace Common.Models.Mappers
                 CompanyId = model.CompanyId,
                 Email = model.Email,
                 Password = model.Password,
-                Name = model.Name,
-                UserRole = model.UserRole
+                Name = model.Name
             };
         }
 

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using BizRules.CompanyBizRules;
@@ -23,22 +25,43 @@ namespace Diplom.Controllers
 
         [HttpPost, Route("create")]
         [JwtAuthorize(UserRole.Admin)]
-        public async Task<CompanyModel> CreateCompany(CreateCompanyRequest request)
+        public async Task<object> CreateCompany(CreateCompanyRequest request)
         {
-            return await _companyBizRules.CreateCompany(request);
+            try
+            {
+                return await _companyBizRules.CreateCompany(request);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
 
         [HttpGet, Route("list")]
-        public async Task<List<CompanyModel>> GetCompanies(CompanyRole roleFilter)
+        public async Task<object> GetCompanies(CompanyRole roleFilter)
         {
-            return await _companyBizRules.GetCompanies(roleFilter);
+            try
+            {
+                return await _companyBizRules.GetCompanies(roleFilter);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
 
         [HttpDelete, Route("{id}")]
-        public async Task<IHttpActionResult> DeleteCompany(Guid id)
+        public async Task<object> DeleteCompany(Guid id)
         {
-            await _companyBizRules.DeleteCompany(id);
-            return Ok();
+            try
+            {
+                await _companyBizRules.DeleteCompany(id);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
         }
     }
 }

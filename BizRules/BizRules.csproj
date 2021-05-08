@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="CompanyBizRules\CompanyBizRules.cs" />
     <Compile Include="CompanyBizRules\ICompanyBizRules.cs" />
+    <Compile Include="InspectionBizRules\IInspectionBizRules.cs" />
+    <Compile Include="InspectionBizRules\InspectionBizRules.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UsersBizRules\IUsersBizRules.cs" />
     <Compile Include="UsersBizRules\UsersBizRules.cs" />
