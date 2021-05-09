@@ -10,7 +10,7 @@ namespace DataAccess.DbModels
         public string Number { get; set; }
 
         public string Description { get; set; }
-        
+
         public IList<Requirement> Requirements { get; set; }
     }
 }

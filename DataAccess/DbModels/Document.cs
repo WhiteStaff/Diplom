@@ -10,7 +10,9 @@ namespace DataAccess.DbModels
         [ForeignKey("Inspection")]
         public Guid InspectionId { get; set; }
 
-        public Guid Inspection { get; set; }
+        public Inspection Inspection { get; set; }
+
+        public string Name { get; set; }
 
         public byte[] Data { get; set; }
     }

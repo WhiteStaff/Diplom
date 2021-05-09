@@ -20,6 +20,8 @@ namespace DataAccess.DbModels
 
         public DateTime? EndDate { get; set; }
 
+        public InspectionStatus Status { get; set; }
+
         public Score? FinalScore { get; set; }
 
         public IList<Employee> Assessors { get; set; }
@@ -27,5 +29,7 @@ namespace DataAccess.DbModels
         public IList<Event> Schedule { get; set; }
 
         public IList<Evaluation> Evaluations { get; set; }
+
+        public IList<Document> Documents { get; set; }
     }
 }

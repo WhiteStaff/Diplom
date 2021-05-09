@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Models\CompanyModel.cs" />
+    <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\Enums\CompanyRole.cs" />
     <Compile Include="Models\Enums\InspectionStatus.cs" />
     <Compile Include="Models\Enums\Score.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="Models\Mappers\InspectionMapper.cs" />
     <Compile Include="Models\Mappers\UserMapper.cs" />
     <Compile Include="Models\RequestModels\CreateCompanyRequest.cs" />
+    <Compile Include="Models\RequestModels\CreateInspectionDocumentRequest.cs" />
     <Compile Include="Models\RequestModels\CreateInspectionRequest.cs" />
     <Compile Include="Models\RequestModels\CreateUserRequest.cs" />
     <Compile Include="Models\UserFullModel.cs" />

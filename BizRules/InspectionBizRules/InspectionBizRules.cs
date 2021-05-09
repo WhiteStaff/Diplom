@@ -50,5 +50,16 @@ namespace BizRules.InspectionBizRules
 
             return await _inspectionRepository.CreateInspection(inspectionModel);
         }
+
+        public async Task AddInspectionDocument(CreateInspectionDocumentRequest request)
+        {
+            await _inspectionRepository.AddInspectionDocument(request.InspectionId, request.DocumentName,
+                request.DocumentData);
+        }
+
+        public async Task<DocumentModel> GetInspectionDocument(Guid documentId)
+        {
+            return await _inspectionRepository.GetInspectionDocument(documentId);
+        }
     }
 }

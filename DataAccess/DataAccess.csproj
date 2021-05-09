@@ -70,6 +70,7 @@
     <Compile Include="DbModels\Requirement.cs" />
     <Compile Include="ISControlDbContext.cs" />
     <Compile Include="Mappers\CompanyMapper.cs" />
+    <Compile Include="Mappers\DocumentMapper.cs" />
     <Compile Include="Mappers\InspectionMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Migrations\202105061118583_FirstTables.cs" />
@@ -99,6 +100,14 @@
     <Compile Include="Migrations\202105081616337_AddedNullability.cs" />
     <Compile Include="Migrations\202105081616337_AddedNullability.designer.cs">
       <DependentUpon>202105081616337_AddedNullability.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105090836134_AddedInspectionStatus.cs" />
+    <Compile Include="Migrations\202105090836134_AddedInspectionStatus.designer.cs">
+      <DependentUpon>202105090836134_AddedInspectionStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105090923310_FixScoreTables.cs" />
+    <Compile Include="Migrations\202105090923310_FixScoreTables.designer.cs">
+      <DependentUpon>202105090923310_FixScoreTables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -131,6 +140,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105081616337_AddedNullability.resx">
       <DependentUpon>202105081616337_AddedNullability.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105090836134_AddedInspectionStatus.resx">
+      <DependentUpon>202105090836134_AddedInspectionStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105090923310_FixScoreTables.resx">
+      <DependentUpon>202105090923310_FixScoreTables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

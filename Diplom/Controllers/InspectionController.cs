@@ -15,7 +15,7 @@ namespace Diplom.Controllers
 {
     [Authorize]
     [RoutePrefix("api/inspection")]
-    public class InspectionController : ApiController
+    public class InspectionController : ApiControllerBase
     {
         private readonly IInspectionBizRules _inspectionBizRules;
 
@@ -33,6 +33,34 @@ namespace Diplom.Controllers
                 var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
 
                 return await _inspectionBizRules.CreateInspection(request,  userId);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("addDocument")]
+        public async Task<object> AdInspectionDocument(CreateInspectionDocumentRequest request)
+        {
+            try
+            {
+                await _inspectionBizRules.AddInspectionDocument(request);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpGet, Route("getDocument")]
+        public async Task<object> GetInspectionDocument([FromUri] Guid documentId)
+        {
+            try
+            {
+                var document = await _inspectionBizRules.GetInspectionDocument(documentId);
+                return FileContent(document.Name, document.Data);
             }
             catch (Exception e)
             {

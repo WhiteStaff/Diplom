@@ -16,6 +16,8 @@ namespace Models
 
         public Score? FinalScore { get; set; }
 
+        public InspectionStatus Status { get; set; }
+
         public List<UserModel> Assessors { get; set; }
     }
 }

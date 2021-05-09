@@ -141,6 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ApiControllerBase.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
     <Compile Include="Controllers\InspectionController.cs" />
     <Compile Include="Controllers\UserController.cs" />

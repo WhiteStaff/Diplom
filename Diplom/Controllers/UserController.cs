@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -7,14 +6,13 @@ using System.Web.Http;
 using BizRules.UsersBizRules;
 using Common.Models.Enums;
 using Common.Models.RequestModels;
-using Models;
 using OAuth;
 
 namespace Diplom.Controllers
 {
     [Authorize]
     [RoutePrefix("api/user")]
-    public class UserController : ApiController
+    public class UserController : ApiControllerBase
     {
         private readonly IUsersBizRules _usersBizRules;
 

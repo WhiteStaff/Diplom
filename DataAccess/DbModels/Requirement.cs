@@ -13,5 +13,7 @@ namespace DataAccess.DbModels
         public Guid CategoryId { get; set; }
 
         public Category Category { get; set; }
+
+        public string PossibleScores { get; set; }
     }
 }

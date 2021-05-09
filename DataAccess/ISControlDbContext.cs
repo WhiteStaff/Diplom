@@ -31,5 +31,7 @@ namespace DataAccess
         public DbSet<Inspection> Inspections { get; set; }
 
         public DbSet<RefreshToken> RefreshTokens { get; set; }
+
+        public DbSet<Document> Documents { get; set; }
     }
 }

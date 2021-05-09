@@ -8,5 +8,9 @@ namespace BizRules.InspectionBizRules
     public interface IInspectionBizRules
     {
         Task<InspectionModel> CreateInspection(CreateInspectionRequest request, Guid userId);
+
+        Task AddInspectionDocument(CreateInspectionDocumentRequest request);
+
+        Task<DocumentModel> GetInspectionDocument(Guid documentId);
     }
 }
