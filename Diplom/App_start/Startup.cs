@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
+using System.Web;
 using Microsoft.Owin;
 using Owin;
 using System.Web.Http;
@@ -10,6 +12,7 @@ using System.Web.Http.Dependencies;
 using BizRules.CompanyBizRules;
 using BizRules.InspectionBizRules;
 using BizRules.UsersBizRules;
+using DataAccess;
 using DataAccess.DataAccess.CompanyRepository;
 using DataAccess.DataAccess.InspectionRepository;
 using DataAccess.DataAccess.TokenRepository;
@@ -35,6 +38,14 @@ namespace Diplom
             WebApiConfig.Build(config);
             ConfigureOAuth(app, resolver);
             app.UseWebApi(config);
+            using (var context = new ISControlDbContext())
+            {
+                if (context.Categories.SelectMany(x => x.Requirements).Count() != 129)
+                {
+                    var scriptCommand = File.ReadAllText($"{HttpRuntime.BinDirectory}/script.sql");
+                    context.Database.ExecuteSqlCommand(scriptCommand);
+                }
+            }
         }
 
         public void ConfigureServices(IServiceCollection services)

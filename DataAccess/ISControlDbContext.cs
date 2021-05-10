@@ -33,5 +33,7 @@ namespace DataAccess
         public DbSet<RefreshToken> RefreshTokens { get; set; }
 
         public DbSet<Document> Documents { get; set; }
+
+        public DbSet<Category> Categories { get; set; }
     }
 }
