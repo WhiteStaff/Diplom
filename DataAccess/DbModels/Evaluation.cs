@@ -14,7 +14,7 @@ namespace DataAccess.DbModels
 
         [Key, Column(Order = 2)]
         [ForeignKey("Requirement")]
-        public Guid RequirementId { get; set; }
+        public int RequirementId { get; set; }
 
         public Requirement Requirement { get; set; }
 

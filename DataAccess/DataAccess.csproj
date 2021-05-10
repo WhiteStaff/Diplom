@@ -109,6 +109,14 @@
     <Compile Include="Migrations\202105090923310_FixScoreTables.designer.cs">
       <DependentUpon>202105090923310_FixScoreTables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105101110072_Fix.cs" />
+    <Compile Include="Migrations\202105101110072_Fix.designer.cs">
+      <DependentUpon>202105101110072_Fix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105101112245_RequirementTableFix.cs" />
+    <Compile Include="Migrations\202105101112245_RequirementTableFix.designer.cs">
+      <DependentUpon>202105101112245_RequirementTableFix.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -146,6 +154,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105090923310_FixScoreTables.resx">
       <DependentUpon>202105090923310_FixScoreTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105101110072_Fix.resx">
+      <DependentUpon>202105101110072_Fix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105101112245_RequirementTableFix.resx">
+      <DependentUpon>202105101112245_RequirementTableFix.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
