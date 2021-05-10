@@ -11,7 +11,7 @@ namespace BizRules.CompanyBizRules
     {
         Task<CompanyModel> CreateCompany(CreateCompanyRequest request);
 
-        Task<List<CompanyModel>> GetCompanies(CompanyRole role);
+        Task<Page<CompanyModel>> GetCompanies(CompanyRole role, int take, int skip);
 
         Task DeleteCompany(Guid id);
     }

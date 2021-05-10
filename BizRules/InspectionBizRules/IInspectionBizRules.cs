@@ -12,5 +12,9 @@ namespace BizRules.InspectionBizRules
         Task AddInspectionDocument(CreateInspectionDocumentRequest request);
 
         Task<DocumentModel> GetInspectionDocument(Guid documentId);
+
+        Task<Page<BriefDocumentModel>> GetInspectionDocuments(Guid inspectionId, int take, int skip);
+
+        Task DeleteDocument(Guid documentId);
     }
 }

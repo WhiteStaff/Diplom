@@ -68,5 +68,44 @@ namespace DataAccess.DataAccess.InspectionRepository
                 return document.Map();
             }
         }
+
+        public async Task<Page<BriefDocumentModel>> GetDocumentList(Guid inspectionId, int take, int skip)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var documents = context.Documents.Where(x => x.InspectionId == inspectionId);
+
+                return new Page<BriefDocumentModel>
+                {
+                    Items = documents
+                        .OrderBy(x => x.Name)
+                        .Skip(skip)
+                        .Take(take)
+                        .Select(x => new BriefDocumentModel
+                        {
+                            Id = x.Id,
+                            Name = x.Name
+                        }).ToList(),
+                    Total = documents.Count()
+                };
+            }
+        }
+
+        public async Task DeleteDocument(Guid documentId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var document = await context.Documents.FirstOrDefaultAsync(x => x.Id == documentId);
+
+                if (document == null)
+                {
+                    throw new Exception("Document not found");
+                }
+
+                context.Documents.Remove(document);
+
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

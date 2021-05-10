@@ -61,5 +61,15 @@ namespace BizRules.InspectionBizRules
         {
             return await _inspectionRepository.GetInspectionDocument(documentId);
         }
+
+        public async Task<Page<BriefDocumentModel>> GetInspectionDocuments(Guid inspectionID, int take, int skip)
+        {
+            return await _inspectionRepository.GetDocumentList(inspectionID, take, skip);
+        }
+
+        public async Task DeleteDocument(Guid documentId)
+        {
+            await _inspectionRepository.DeleteDocument(documentId);
+        }
     }
 }

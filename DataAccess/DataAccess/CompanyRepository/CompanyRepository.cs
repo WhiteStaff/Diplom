@@ -40,11 +40,17 @@ namespace DataAccess.DataAccess.CompanyRepository
             }
         }
 
-        public async Task<List<CompanyModel>> GetCompanies(CompanyRole role)
+        public async Task<Page<CompanyModel>> GetCompanies(CompanyRole role, int take, int skip)
         {
             using (var context = new ISControlDbContext())
             {
-                return context.Companies.Where(x => x.Role == role).ToList().Select(x => x.ToModel()).ToList();
+                var companies = context.Companies.Where(x => x.Role == role).OrderBy(x => x.Name);
+
+                return new Page<CompanyModel>
+                {
+                    Items = companies.Skip(skip).Take(take).ToList().Select(x => x.ToModel()).ToList(),
+                    Total = companies.Count()
+                };
             }
         }
 

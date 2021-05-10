@@ -10,7 +10,7 @@ namespace DataAccess.DataAccess.CompanyRepository
     {
         Task<CompanyModel> CreateCompany(CompanyModel model);
 
-        Task<List<CompanyModel>> GetCompanies(CompanyRole role);
+        Task<Page<CompanyModel>> GetCompanies(CompanyRole role, int take, int skip);
 
         Task DeleteCompany(Guid id);
 

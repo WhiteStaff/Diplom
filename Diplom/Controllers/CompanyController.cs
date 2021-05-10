@@ -36,11 +36,11 @@ namespace Diplom.Controllers
         }
 
         [HttpGet, Route("list")]
-        public async Task<object> GetCompanies(CompanyRole roleFilter)
+        public async Task<object> GetCompanies([FromUri] CompanyRole roleFilter, [FromUri] int take, [FromUri] int skip)
         {
             try
             {
-                return await _companyBizRules.GetCompanies(roleFilter);
+                return await _companyBizRules.GetCompanies(roleFilter, take, skip);
             }
             catch (Exception e)
             {

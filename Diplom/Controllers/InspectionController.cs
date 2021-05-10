@@ -40,7 +40,7 @@ namespace Diplom.Controllers
             }
         }
 
-        [HttpPost, Route("addDocument")]
+        [HttpPost, Route("documents/create")]
         public async Task<object> AdInspectionDocument(CreateInspectionDocumentRequest request)
         {
             try
@@ -54,13 +54,40 @@ namespace Diplom.Controllers
             }
         }
 
-        [HttpGet, Route("getDocument")]
+        [HttpGet, Route("documents/{documentId}")]
         public async Task<object> GetInspectionDocument([FromUri] Guid documentId)
         {
             try
             {
                 var document = await _inspectionBizRules.GetInspectionDocument(documentId);
                 return FileContent(document.Name, document.Data);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpGet, Route("documents/list")]
+        public async Task<object> GetInspectionDocumentList([FromUri] Guid inspectionId, [FromUri] int take, [FromUri] int skip)
+        {
+            try
+            {
+                return await _inspectionBizRules.GetInspectionDocuments(inspectionId, take, skip);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpDelete, Route("documents/{documentId}")]
+        public async Task<object> GetInspectionDocumentList(Guid documentId)
+        {
+            try
+            {
+                await _inspectionBizRules.DeleteDocument(documentId);
+                return Ok();
             }
             catch (Exception e)
             {

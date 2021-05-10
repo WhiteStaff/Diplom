@@ -23,9 +23,9 @@ namespace BizRules.CompanyBizRules
             return await _companyRepository.CreateCompany(request.ToModel());
         }
 
-        public async Task<List<CompanyModel>> GetCompanies(CompanyRole role)
+        public async Task<Page<CompanyModel>> GetCompanies(CompanyRole role, int take, int skip)
         {
-            return await _companyRepository.GetCompanies(role);
+            return await _companyRepository.GetCompanies(role, take, skip);
         }
 
         public async Task DeleteCompany(Guid id)
