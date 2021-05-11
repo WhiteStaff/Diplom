@@ -18,22 +18,9 @@ namespace DataAccess.Mappers
                 EndDate = model.EndDate,
                 FinalScore = model.FinalScore,
                 Status = model.Status,
-                Assessors = model.Assessors?.ToList()?.Select(x => x.Map())?.ToList(),
+                Assessors = model.Assessors?.Select(x => x.Employee)?.ToList()?.Select(x => x.Map())?.ToList(),
                 Schedule = model.Schedule?.OrderBy(x => x.Date)?.ToList()?.Select(x => x.Map())?.ToList(),
                 Documents = model.Documents?.OrderBy(x => x.Name)?.Select(x => x.Map())?.ToList()
-            };
-        }
-
-        public static Inspection Map(this InspectionModel model)
-        {
-            return new Inspection
-            {
-                Id = model.Id,
-                CustomerId = model.CompanyId,
-                StartDate = model.StartDate,
-                EndDate = model.EndDate,
-                FinalScore = model.FinalScore,
-                Assessors = model.Assessors.Select(x => x.Map()).ToList()
             };
         }
 

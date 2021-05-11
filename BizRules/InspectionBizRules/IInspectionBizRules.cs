@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common.Models;
+using Common.Models.Enums;
 using Common.Models.RequestModels;
 using Models;
 
@@ -30,5 +31,7 @@ namespace BizRules.InspectionBizRules
         Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive);
 
         Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description);
+
+        Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status);
     }
 }

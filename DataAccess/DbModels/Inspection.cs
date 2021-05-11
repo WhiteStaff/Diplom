@@ -29,7 +29,7 @@ namespace DataAccess.DbModels
 
         public Score? FinalScore { get; set; }
 
-        public IList<Employee> Assessors { get; set; }
+        public IList<EmployeeInspection> Assessors { get; set; }
 
         public IList<Event> Schedule { get; set; }
 

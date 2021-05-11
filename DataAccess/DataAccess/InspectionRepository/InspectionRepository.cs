@@ -47,7 +47,9 @@ namespace DataAccess.DataAccess.InspectionRepository
         {
             using (var context = new ISControlDbContext())
             {
-                var inspection = await context.Inspections.Include(x => x.Contractor.Employees).FirstOrDefaultAsync(x => x.Id == inspectionId);
+                var inspection = await context.Inspections
+                    .Include(x => x.Contractor.Employees)
+                    .FirstOrDefaultAsync(x => x.Id == inspectionId);
 
                 if (inspection == null)
                 {
@@ -60,7 +62,12 @@ namespace DataAccess.DataAccess.InspectionRepository
                 }
 
                 inspection.Assessors = inspection.Contractor.Employees
-                    .Where(x => x.Role == UserRole.User && assessorIds.Contains(x.Id)).ToList();
+                    .Where(x => x.Role == UserRole.User && assessorIds.Contains(x.Id)).Select(x => new EmployeeInspection
+                    {
+                        EmployeeId = x.Id,
+                        InspectionId = inspectionId,
+                        Approved = false
+                    }).ToList();
 
                 inspection.StartDate = DateTime.Now;
                 inspection.Status = InspectionStatus.InProgress;
@@ -76,7 +83,7 @@ namespace DataAccess.DataAccess.InspectionRepository
             using (var context = new ISControlDbContext())
             {
                 var inspection = await context.Inspections
-                    .Include(x => x.Assessors)
+                    .Include(x => x.Assessors.Select(e => e.Employee))
                     .Include(x => x.Schedule)
                     .FirstOrDefaultAsync(x => x.Id == inspectionId);
 
@@ -216,7 +223,7 @@ namespace DataAccess.DataAccess.InspectionRepository
             {
                 var res = context.Companies
                     .AsQueryable()
-                    .Include(x => x.Inspections.Select(i => i.Assessors))
+                    .Include(x => x.Inspections.Select(i => i.Assessors.Select(e => e.Employee)))
                     .Include(x => x.Inspections.Select(i => i.Evaluations))
                     .Include(x => x.Inspections.Select(i => i.Documents))
                     .Include(x => x.Inspections.Select(i => i.Schedule))
@@ -241,7 +248,7 @@ namespace DataAccess.DataAccess.InspectionRepository
             {
                 var res = context.Companies
                     .AsQueryable()
-                    .Include(x => x.OrderedInspections.Select(i => i.Assessors))
+                    .Include(x => x.Inspections.Select(i => i.Assessors.Select(e => e.Employee)))
                     .Include(x => x.OrderedInspections.Select(i => i.Evaluations))
                     .Include(x => x.OrderedInspections.Select(i => i.Documents))
                     .Include(x => x.OrderedInspections.Select(i => i.Schedule))
@@ -257,6 +264,16 @@ namespace DataAccess.DataAccess.InspectionRepository
                     Total = res.Count
                 };
 
+            }
+        }
+
+        public async Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var inspection = await context.Inspections.FirstAsync(x => x.Id == inspectionId);
+                inspection.Status = status;
+                await context.SaveChangesAsync();
             }
         }
     }

@@ -65,6 +65,7 @@
     <Compile Include="DbModels\Company.cs" />
     <Compile Include="DbModels\Document.cs" />
     <Compile Include="DbModels\Employee.cs" />
+    <Compile Include="DbModels\EmployeeInspection.cs" />
     <Compile Include="DbModels\Evaluation.cs" />
     <Compile Include="DbModels\Event.cs" />
     <Compile Include="DbModels\Inspection.cs" />
@@ -136,6 +137,10 @@
     <Compile Include="Migrations\202105111343116_AddEvaluationDescription.designer.cs">
       <DependentUpon>202105111343116_AddEvaluationDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105111458377_AddEmployeeInspectionTable.cs" />
+    <Compile Include="Migrations\202105111458377_AddEmployeeInspectionTable.designer.cs">
+      <DependentUpon>202105111458377_AddEmployeeInspectionTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -191,6 +196,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105111343116_AddEvaluationDescription.resx">
       <DependentUpon>202105111343116_AddEvaluationDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105111458377_AddEmployeeInspectionTable.resx">
+      <DependentUpon>202105111458377_AddEmployeeInspectionTable.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

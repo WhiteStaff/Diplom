@@ -174,5 +174,20 @@ namespace Diplom.Controllers
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
             }
         }
+
+        [HttpPut, Route("{inspectionId}/updateStatus")]
+        [JwtAuthorize(UserRole.CompanyAdmin)]
+        public async Task<object> UpdateStatus(Guid inspectionId, [FromBody] UpdateInspectionStatusRequest request)
+        {
+            try
+            {
+                await _inspectionBizRules.UpdateInspectionStatus(inspectionId, request.Status);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
     }
 }

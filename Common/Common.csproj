@@ -66,6 +66,7 @@
     <Compile Include="Models\RequestModels\GetEvaluationRequest.cs" />
     <Compile Include="Models\RequestModels\SetEvaluationRequest.cs" />
     <Compile Include="Models\RequestModels\StartInspectionRequest.cs" />
+    <Compile Include="Models\RequestModels\UpdateInspectionStatusRequest.cs" />
     <Compile Include="Models\RequirementModel.cs" />
     <Compile Include="Models\UserFullModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

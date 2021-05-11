@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Models;
+using Common.Models.Enums;
 using Models;
 
 namespace DataAccess.DataAccess.EvaluationRepository
@@ -85,14 +86,22 @@ namespace DataAccess.DataAccess.EvaluationRepository
         {
             using (var context = new ISControlDbContext())
             {
-                var eval = context.Inspections
+                var inspection = context.Inspections
                     .AsQueryable()
                     .Include(x => x.Evaluations)
-                    .First(x => x.Id == inspectionId).Evaluations
+                    .First(x => x.Id == inspectionId);
+
+                var eval = inspection.Evaluations
                     .First(x => x.RequirementId == requirementId);
 
                 eval.Score = score;
                 eval.Description = description;
+
+                if (inspection.Evaluations.All(x => x.Score != null))
+                {
+                    inspection.Status = InspectionStatus.InReview;
+                }
+
                 await context.SaveChangesAsync();
             }
         }

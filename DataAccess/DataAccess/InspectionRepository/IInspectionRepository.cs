@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common.Models;
+using Common.Models.Enums;
 using Models;
 
 namespace DataAccess.DataAccess.InspectionRepository
@@ -29,5 +30,7 @@ namespace DataAccess.DataAccess.InspectionRepository
         Task<Page<InspectionModel>> GetCompanyArchiveInspections(Guid companyId, int take, int skip);
 
         Task<Page<InspectionModel>> GetCompanyActiveInspections(Guid companyId, int take, int skip);
+
+        Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status);
     }
 }

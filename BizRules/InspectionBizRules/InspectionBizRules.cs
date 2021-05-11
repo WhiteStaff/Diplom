@@ -103,7 +103,18 @@ namespace BizRules.InspectionBizRules
 
         public async Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description) 
         {
+            var inspection = await GetInspection(inspectionId);
+            if (inspection.Status != InspectionStatus.InProgress)
+            {
+                throw new Exception("Wrong status to set evaluations.");
+            }
+
             await _evaluationRepository.SetEvaluation(inspectionId, reqId, score, description);
+        }
+
+        public async Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status)
+        {
+            await _inspectionRepository.UpdateInspectionStatus(inspectionId, status);
         }
     }
 }

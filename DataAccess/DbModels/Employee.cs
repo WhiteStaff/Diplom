@@ -22,7 +22,7 @@ namespace DataAccess.DbModels
 
         public string Password { get; set; }
 
-        public IList<Inspection> Inspections { get; set; }
+        public IList<EmployeeInspection> Inspections { get; set; }
 
         public UserRole Role { get; set; }
     }
