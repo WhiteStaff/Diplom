@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
@@ -74,6 +73,17 @@ namespace DataAccess.DataAccess.CompanyRepository
             using (var context = new ISControlDbContext())
             {
                 return (await context.Companies.FirstOrDefaultAsync(x => x.Id == companyId))?.ToModel();
+            }
+        }
+
+        public async Task<CompanyModel> GetUserCompany(Guid userId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                return (await context.Employees
+                    .AsQueryable()
+                    .Include(x => x.Company)
+                    .FirstAsync(x => x.Id == userId)).Company.ToModel();
             }
         }
     }

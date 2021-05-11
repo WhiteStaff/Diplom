@@ -22,5 +22,7 @@ namespace Models
         public List<UserModel> Assessors { get; set; }
 
         public List<EventModel> Schedule { get; set; }
+
+        public List<DocumentModel> Documents { get; set; }
     }
 }

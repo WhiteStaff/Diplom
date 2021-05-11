@@ -55,27 +55,21 @@ namespace DataAccess.DataAccess.EvaluationRepository
 
                 var categories = context.Categories
                     .AsQueryable()
-                    .Include(x => x.Requirements)
-                    .ToList()
+                    .Include(x => x.Requirements).ToList()
                     .OrderBy(x => x.Requirements.First().Id)
                     .Select(x => new CategoryModel
                     {
                         Id = x.Id,
                         Description = x.Description,
                         Number = x.Number,
-                        Requirements = x.Requirements
-                            .OrderBy(f => f.Id)
-                            .Select(r => new RequirementModel
-                            {
-                                Id = r.Id,
-                                Description = r.Description,
-                                PossibleScores = r.PossibleScores.Split(';')
-                                    .Select(s => Convert.ToDouble(s, CultureInfo.InvariantCulture)).ToArray(),
-                                Score = scores[r.Id]
-                            })
-                            .Where(where)
-                            .ToList()
-                    })
+                        Requirements = x.Requirements.Select(r => new RequirementModel
+                        {
+                            Id = r.Id,
+                            Description = r.Description,
+                            PossibleScores = r.PossibleScores.Split(';')
+                                .Select(s => Convert.ToDouble(s, CultureInfo.InvariantCulture)).ToArray()
+                        }).Where(where).ToList()
+                    }).ToList()
                     .Where(x => x.Requirements.Any())
                     .ToList();
 
@@ -87,7 +81,7 @@ namespace DataAccess.DataAccess.EvaluationRepository
             }
         }
 
-        public async Task SetEvaluation(Guid inspectionId, int requirementId, double? score)
+        public async Task SetEvaluation(Guid inspectionId, int requirementId, double? score, string description)
         {
             using (var context = new ISControlDbContext())
             {
@@ -98,6 +92,7 @@ namespace DataAccess.DataAccess.EvaluationRepository
                     .First(x => x.RequirementId == requirementId);
 
                 eval.Score = score;
+                eval.Description = description;
                 await context.SaveChangesAsync();
             }
         }

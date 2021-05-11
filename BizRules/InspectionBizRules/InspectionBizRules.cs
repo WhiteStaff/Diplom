@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Common.Models;
 using Common.Models.Enums;
-using Common.Models.Mappers;
 using Common.Models.RequestModels;
 using DataAccess.DataAccess.CompanyRepository;
 using DataAccess.DataAccess.EvaluationRepository;
@@ -103,9 +101,9 @@ namespace BizRules.InspectionBizRules
             return await _evaluationRepository.GetEvaluations(inspectionId, take, skip, onlySet, positive);
         }
 
-        public async Task SetEvaluation(Guid inspectionId, int reqId, double? score)
+        public async Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description) 
         {
-            await _evaluationRepository.SetEvaluation(inspectionId, reqId, score);
+            await _evaluationRepository.SetEvaluation(inspectionId, reqId, score, description);
         }
     }
 }

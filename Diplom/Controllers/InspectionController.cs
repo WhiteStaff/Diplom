@@ -166,7 +166,7 @@ namespace Diplom.Controllers
         {
             try
             {
-                await _inspectionBizRules.SetEvaluation(inspectionId, request.RequirementId, request.Score);
+                await _inspectionBizRules.SetEvaluation(inspectionId, request.RequirementId, request.Score, request.Description);
                 return Ok();
             }
             catch (Exception e)

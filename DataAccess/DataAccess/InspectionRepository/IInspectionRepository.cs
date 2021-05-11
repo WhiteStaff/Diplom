@@ -25,5 +25,9 @@ namespace DataAccess.DataAccess.InspectionRepository
         Task<Page<BriefDocumentModel>> GetDocumentList(Guid inspectionId, int take, int skip);
 
         Task DeleteDocument(Guid documentId);
+
+        Task<Page<InspectionModel>> GetCompanyArchiveInspections(Guid companyId, int take, int skip);
+
+        Task<Page<InspectionModel>> GetCompanyActiveInspections(Guid companyId, int take, int skip);
     }
 }

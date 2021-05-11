@@ -19,5 +19,7 @@ namespace BizRules.UsersBizRules
         Task DeleteUser(Guid id);
 
         Task<List<UserModel>> GetCompanyUsers(Guid companyId);
+
+        Task<Page<InspectionModel>> GetMyInspections(Guid userId, int take, int skip);
     }
 }

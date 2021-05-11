@@ -19,7 +19,8 @@ namespace DataAccess.Mappers
                 FinalScore = model.FinalScore,
                 Status = model.Status,
                 Assessors = model.Assessors?.ToList()?.Select(x => x.Map())?.ToList(),
-                Schedule = model.Schedule?.OrderBy(x => x.Date)?.ToList()?.Select(x => x.Map())?.ToList()
+                Schedule = model.Schedule?.OrderBy(x => x.Date)?.ToList()?.Select(x => x.Map())?.ToList(),
+                Documents = model.Documents?.OrderBy(x => x.Name)?.Select(x => x.Map())?.ToList()
             };
         }
 

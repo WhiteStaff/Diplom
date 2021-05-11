@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Common.Models.Enums;
 using Models;
@@ -15,5 +14,7 @@ namespace DataAccess.DataAccess.CompanyRepository
         Task DeleteCompany(Guid id);
 
         Task<CompanyModel> GetCompany(Guid companyId);
+
+        Task<CompanyModel> GetUserCompany(Guid userId);
     }
 }

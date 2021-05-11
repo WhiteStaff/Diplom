@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Net;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using BizRules.UsersBizRules;
 using Common.Models.Enums;
@@ -96,6 +98,21 @@ namespace Diplom.Controllers
             try
             {
                 return await _usersBizRules.GetCompanyUsers(companyId);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpGet, Route("inspections")]
+        [JwtAuthorize(UserRole.CompanyAdmin, UserRole.User)]
+        public async Task<object> GetMyInspections([FromUri] int take, [FromUri] int skip)
+        {
+            try
+            {
+                var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
+                return await _usersBizRules.GetMyInspections(userId, take, skip);
             }
             catch (Exception e)
             {

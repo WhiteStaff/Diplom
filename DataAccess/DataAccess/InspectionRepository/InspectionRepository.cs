@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Common.Models;
 using Common.Models.Enums;
@@ -32,7 +33,8 @@ namespace DataAccess.DataAccess.InspectionRepository
                 {
                     InspectionId = inspection.Id,
                     RequirementId = x.Id,
-                    Score = null
+                    Score = null,
+                    Description = null
                 }));
 
                 await context.SaveChangesAsync();
@@ -205,6 +207,56 @@ namespace DataAccess.DataAccess.InspectionRepository
                 context.Documents.Remove(document);
 
                 await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Page<InspectionModel>> GetCompanyArchiveInspections(Guid companyId, int take, int skip)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var res = context.Companies
+                    .AsQueryable()
+                    .Include(x => x.Inspections.Select(i => i.Assessors))
+                    .Include(x => x.Inspections.Select(i => i.Evaluations))
+                    .Include(x => x.Inspections.Select(i => i.Documents))
+                    .Include(x => x.Inspections.Select(i => i.Schedule))
+                    .First(x => x.Id == companyId)
+                    .Inspections
+                    .Where(x => x.Status == InspectionStatus.Finished)
+                    .OrderByDescending(x => x.StartDate)
+                    .ToList();
+
+                return new Page<InspectionModel>
+                {
+                    Items = res.Select(x => x.Map()).ToList(),
+                    Total = res.Count
+                };
+
+            }
+        }
+
+        public async Task<Page<InspectionModel>> GetCompanyActiveInspections(Guid companyId, int take, int skip)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var res = context.Companies
+                    .AsQueryable()
+                    .Include(x => x.OrderedInspections.Select(i => i.Assessors))
+                    .Include(x => x.OrderedInspections.Select(i => i.Evaluations))
+                    .Include(x => x.OrderedInspections.Select(i => i.Documents))
+                    .Include(x => x.OrderedInspections.Select(i => i.Schedule))
+                    .First(x => x.Id == companyId)
+                    .OrderedInspections
+                    .Where(x => x.Status != InspectionStatus.Finished)
+                    .OrderByDescending(x => x.StartDate)
+                    .ToList();
+
+                return new Page<InspectionModel>
+                {
+                    Items = res.Select(x => x.Map()).ToList(),
+                    Total = res.Count
+                };
+
             }
         }
     }

@@ -9,6 +9,6 @@ namespace DataAccess.DataAccess.EvaluationRepository
     {
         Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive);
 
-        Task SetEvaluation(Guid inspectionId, int requirementId, double? score);
+        Task SetEvaluation(Guid inspectionId, int requirementId, double? score, string description);
     }
 }

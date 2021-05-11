@@ -7,5 +7,7 @@ namespace Common.Models.RequestModels
         public int RequirementId { get; set; }
 
         public double? Score { get; set; }
+
+        public string Description { get; set; }
     }
 }

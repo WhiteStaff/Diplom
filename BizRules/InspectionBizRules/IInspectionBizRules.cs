@@ -29,6 +29,6 @@ namespace BizRules.InspectionBizRules
 
         Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive);
 
-        Task SetEvaluation(Guid inspectionId, int reqId, double? score);
+        Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description);
     }
 }
