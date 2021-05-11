@@ -16,6 +16,11 @@ namespace DataAccess.DbModels
 
         public Company Customer { get; set; }
 
+        [ForeignKey("Contractor")]
+        public Guid ContractorId { get; set; }
+
+        public Company Contractor { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         public DateTime? EndDate { get; set; }

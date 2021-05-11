@@ -25,14 +25,14 @@ namespace Diplom.Controllers
         }
 
         [HttpPost, Route("create")]
-        [JwtAuthorize(UserRole.CompanyAdmin)]
-        public async Task<object> CreateInspection(CreateInspectionRequest request)
+        [JwtAuthorize(UserRole.CompanyAdmin, UserRole.User)]
+        public async Task<object> CreateInspection([FromBody]Guid contractorId)
         {
             try
             {
                 var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
 
-                return await _inspectionBizRules.CreateInspection(request,  userId);
+                return await _inspectionBizRules.CreateInspection(contractorId,  userId);
             }
             catch (Exception e)
             {

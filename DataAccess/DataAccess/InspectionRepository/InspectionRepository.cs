@@ -10,19 +10,21 @@ namespace DataAccess.DataAccess.InspectionRepository
 {
     public class InspectionRepository : IInspectionRepository
     {
-        public async Task<InspectionModel> CreateInspection(InspectionModel model)
+        public async Task<InspectionModel> CreateInspection(Guid contractorId, Guid customerId)
         {
             using (var context = new ISControlDbContext())
             {
-                var inspection = model.Map();
-                var assessorIds = inspection.Assessors.Select(x => x.Id);
-                inspection.Assessors = context.Employees.Where(x => assessorIds.Contains(x.Id)).ToList();
-                
+                //var inspection = contractorId.Map();
+                //var assessorIds = inspection.Assessors.Select(x => x.Id);
+                //inspection.Assessors = context.Employees.Where(x => assessorIds.Contains(x.Id)).ToList();
+
+                var inspection = new Inspection { Id = new Guid(), ContractorId = contractorId, CustomerId = customerId };
+
                 context.Inspections.Add(inspection);
 
                 await context.SaveChangesAsync();
 
-                return model;
+                return inspection.Map();
             }
         }
 

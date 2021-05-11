@@ -7,7 +7,7 @@ namespace BizRules.InspectionBizRules
 {
     public interface IInspectionBizRules
     {
-        Task<InspectionModel> CreateInspection(CreateInspectionRequest request, Guid userId);
+        Task<InspectionModel> CreateInspection(Guid contractorId, Guid userId);
 
         Task AddInspectionDocument(CreateInspectionDocumentRequest request);
 

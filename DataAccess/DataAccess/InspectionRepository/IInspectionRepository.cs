@@ -6,7 +6,7 @@ namespace DataAccess.DataAccess.InspectionRepository
 {
     public interface IInspectionRepository
     {
-        Task<InspectionModel> CreateInspection(InspectionModel model);
+        Task<InspectionModel> CreateInspection(Guid contractorId, Guid customerId);
 
         Task AddInspectionDocument(Guid inspectionId, string documentName, byte[] document);
 

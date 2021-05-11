@@ -24,31 +24,28 @@ namespace BizRules.InspectionBizRules
             _companyRepository = companyRepository;
         }
 
-        public async Task<InspectionModel> CreateInspection(CreateInspectionRequest request, Guid userId)
+        public async Task<InspectionModel> CreateInspection(Guid contractorId, Guid userId)
         {
             var user = _userRepository.GetUser(userId);
-            var company = await _companyRepository.GetCompany(request.CustomerId);
+            var customer = await _companyRepository.GetCompany(user.CompanyId.Value);
+            var contractor = await _companyRepository.GetCompany(contractorId);
 
-            if (company == null)
+            if (customer == null)
             {
                 throw new Exception("Company not found.");
             }
 
-            if (company.Role != CompanyRole.Customer)
+            if (customer.Role != CompanyRole.Customer)
             {
                 throw new Exception("Company must be Customer.");
             }
 
-            var inspectionModel = request.Map();
-            var users = await _userRepository.GetCompanyUsers(user.CompanyId.Value);
-            inspectionModel.Assessors = users.Where(x => request.AssessorIds.Contains(x.Id)).ToList();
-
-            if (!inspectionModel.Assessors.Any())
+            if (contractor.Role != CompanyRole.Contractor)
             {
-                throw new Exception("Inspection should have assessors.");
+                throw new Exception("Contractor company must be Contractor.");
             }
 
-            return await _inspectionRepository.CreateInspection(inspectionModel);
+            return await _inspectionRepository.CreateInspection(contractorId, customer.Id);
         }
 
         public async Task AddInspectionDocument(CreateInspectionDocumentRequest request)

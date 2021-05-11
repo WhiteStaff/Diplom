@@ -117,6 +117,18 @@
     <Compile Include="Migrations\202105101112245_RequirementTableFix.designer.cs">
       <DependentUpon>202105101112245_RequirementTableFix.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105110910568_DbFix.cs" />
+    <Compile Include="Migrations\202105110910568_DbFix.designer.cs">
+      <DependentUpon>202105110910568_DbFix.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105110923323_dropInspections.cs" />
+    <Compile Include="Migrations\202105110923323_dropInspections.designer.cs">
+      <DependentUpon>202105110923323_dropInspections.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202105110924559_AddInspectionContractor.cs" />
+    <Compile Include="Migrations\202105110924559_AddInspectionContractor.designer.cs">
+      <DependentUpon>202105110924559_AddInspectionContractor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -160,6 +172,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105101112245_RequirementTableFix.resx">
       <DependentUpon>202105101112245_RequirementTableFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105110910568_DbFix.resx">
+      <DependentUpon>202105110910568_DbFix.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105110923323_dropInspections.resx">
+      <DependentUpon>202105110923323_dropInspections.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105110924559_AddInspectionContractor.resx">
+      <DependentUpon>202105110924559_AddInspectionContractor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

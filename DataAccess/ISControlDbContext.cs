@@ -14,12 +14,19 @@ namespace DataAccess
             modelBuilder.Entity<Inspection>()
                 .HasRequired(x => x.Customer)
                 .WithMany(x => x.Inspections)
+                .HasForeignKey(x => x.CustomerId)
                 .WillCascadeOnDelete(false);
 
             modelBuilder.Entity<Company>()
                 .HasMany(x => x.Employees)
                 .WithOptional(x => x.Company)
                 .WillCascadeOnDelete(true);
+
+            modelBuilder.Entity<Inspection>()
+                .HasRequired(x => x.Contractor)
+                .WithMany(x => x.OrderedInspections)
+                .HasForeignKey(x => x.ContractorId)
+                .WillCascadeOnDelete(false);
         }
 
         public DbSet<Company> Companies { get; set; }

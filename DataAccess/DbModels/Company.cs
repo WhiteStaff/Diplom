@@ -20,6 +20,8 @@ namespace DataAccess.DbModels
 
         public IList<Employee> Employees { get; set; }
 
+        public IList<Inspection> OrderedInspections { get; set; }
+
         public IList<Inspection> Inspections { get; set; }
     }
 }

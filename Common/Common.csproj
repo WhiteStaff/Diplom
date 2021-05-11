@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Models\Attributes\RequiredNonDefault.cs" />
     <Compile Include="Models\BriefDocumentModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\DocumentModel.cs" />
