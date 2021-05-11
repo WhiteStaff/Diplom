@@ -33,5 +33,7 @@ namespace BizRules.InspectionBizRules
         Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description);
 
         Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status);
+
+        Task ApproveInspection(Guid userId, Guid inspectionId);
     }
 }

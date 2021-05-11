@@ -189,5 +189,22 @@ namespace Diplom.Controllers
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
             }
         }
+
+        [HttpPut, Route("{inspectionId}/approve")]
+        [JwtAuthorize(UserRole.CompanyAdmin)]
+        public async Task<object> Approve(Guid inspectionId)
+        {
+            try
+            {
+                var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                await _inspectionBizRules.ApproveInspection(userId, inspectionId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
     }
 }

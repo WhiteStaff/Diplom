@@ -116,5 +116,10 @@ namespace BizRules.InspectionBizRules
         {
             await _inspectionRepository.UpdateInspectionStatus(inspectionId, status);
         }
+
+        public async Task ApproveInspection(Guid userId, Guid inspectionId)
+        {
+            await _inspectionRepository.ApproveInspection(userId, inspectionId);
+        }
     }
 }

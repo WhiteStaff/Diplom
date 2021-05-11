@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Common.Models;
 using Common.Models.Enums;
@@ -273,6 +272,30 @@ namespace DataAccess.DataAccess.InspectionRepository
             {
                 var inspection = await context.Inspections.FirstAsync(x => x.Id == inspectionId);
                 inspection.Status = status;
+                await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task ApproveInspection(Guid userId, Guid inspectionId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var inspection = context.Inspections
+                    .AsQueryable()
+                    .Include(x => x.Assessors)
+                    .First(x => x.Id == inspectionId);
+
+                var inspectionEmployee = inspection
+                    .Assessors
+                    .First(x => x.EmployeeId == userId);
+
+                inspectionEmployee.Approved = true;
+
+                if (inspection.Assessors.All(x => x.Approved))
+                {
+                    inspection.Status = InspectionStatus.Approved;
+                }
+
                 await context.SaveChangesAsync();
             }
         }
