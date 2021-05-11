@@ -48,6 +48,7 @@
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Models\Attributes\RequiredNonDefault.cs" />
     <Compile Include="Models\BriefDocumentModel.cs" />
+    <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\DocumentModel.cs" />
     <Compile Include="Models\Enums\CompanyRole.cs" />
@@ -62,7 +63,10 @@
     <Compile Include="Models\RequestModels\CreateInspectionDocumentRequest.cs" />
     <Compile Include="Models\RequestModels\CreateUserRequest.cs" />
     <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\RequestModels\GetEvaluationRequest.cs" />
+    <Compile Include="Models\RequestModels\SetEvaluationRequest.cs" />
     <Compile Include="Models\RequestModels\StartInspectionRequest.cs" />
+    <Compile Include="Models\RequirementModel.cs" />
     <Compile Include="Models\UserFullModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\UserModel.cs" />

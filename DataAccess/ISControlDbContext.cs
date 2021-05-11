@@ -42,5 +42,8 @@ namespace DataAccess
         public DbSet<Document> Documents { get; set; }
 
         public DbSet<Category> Categories { get; set; }
+
+
+        public DbSet<Requirement> Requirements { get; set; }
     }
 }

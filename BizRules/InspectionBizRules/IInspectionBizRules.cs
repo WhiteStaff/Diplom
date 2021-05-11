@@ -26,5 +26,9 @@ namespace BizRules.InspectionBizRules
         Task<Page<BriefDocumentModel>> GetInspectionDocuments(Guid inspectionId, int take, int skip);
 
         Task DeleteDocument(Guid documentId);
+
+        Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive);
+
+        Task SetEvaluation(Guid inspectionId, int reqId, double? score);
     }
 }

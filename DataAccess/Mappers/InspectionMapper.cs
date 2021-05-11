@@ -18,8 +18,8 @@ namespace DataAccess.Mappers
                 EndDate = model.EndDate,
                 FinalScore = model.FinalScore,
                 Status = model.Status,
-                Assessors = model.Assessors.ToList().Select(x => x.Map()).ToList(),
-                Schedule = model.Schedule.OrderBy(x => x.Date).ToList().Select(x => x.Map()).ToList()
+                Assessors = model.Assessors?.ToList()?.Select(x => x.Map())?.ToList(),
+                Schedule = model.Schedule?.OrderBy(x => x.Date)?.ToList()?.Select(x => x.Map())?.ToList()
             };
         }
 

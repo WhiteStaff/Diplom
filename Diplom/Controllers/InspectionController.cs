@@ -26,7 +26,7 @@ namespace Diplom.Controllers
 
         [HttpPost, Route("create")]
         [JwtAuthorize(UserRole.CompanyAdmin, UserRole.User)]
-        public async Task<object> CreateInspection([FromBody]Guid contractorId)
+        public async Task<object> CreateInspection([FromUri]Guid contractorId)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace Diplom.Controllers
             }
         }
 
-        [HttpPost, Route("{inspectionId}")]
+        [HttpGet, Route("{inspectionId}")]
         public async Task<object> GetInspection(Guid inspectionId)
         {
             try
@@ -140,6 +140,33 @@ namespace Diplom.Controllers
             try
             {
                 await _inspectionBizRules.DeleteDocument(documentId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("{inspectionId}/evaluations")]
+        public async Task<object> GetInspectionEvaluations(Guid inspectionId, [FromBody] GetEvaluationRequest request)
+        {
+            try
+            {
+                return await _inspectionBizRules.GetEvaluations(inspectionId, request.Take, request.Skip, request.OnlySet, request.Positive);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPut, Route("{inspectionId}/evaluations")]
+        public async Task<object> SetEvaluation(Guid inspectionId, [FromBody] SetEvaluationRequest request)
+        {
+            try
+            {
+                await _inspectionBizRules.SetEvaluation(inspectionId, request.RequirementId, request.Score);
                 return Ok();
             }
             catch (Exception e)

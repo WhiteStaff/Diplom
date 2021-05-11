@@ -7,6 +7,7 @@ using Common.Models.Enums;
 using Common.Models.Mappers;
 using Common.Models.RequestModels;
 using DataAccess.DataAccess.CompanyRepository;
+using DataAccess.DataAccess.EvaluationRepository;
 using DataAccess.DataAccess.InspectionRepository;
 using DataAccess.DataAccess.UserRepository;
 using Models;
@@ -18,12 +19,18 @@ namespace BizRules.InspectionBizRules
         private readonly IUserRepository _userRepository;
         private readonly IInspectionRepository _inspectionRepository;
         private readonly ICompanyRepository _companyRepository;
+        private readonly IEvaluationRepository _evaluationRepository;
 
-        public InspectionBizRules(IUserRepository userRepository, IInspectionRepository inspectionRepository, ICompanyRepository companyRepository)
+        public InspectionBizRules(
+            IUserRepository userRepository, 
+            IInspectionRepository inspectionRepository, 
+            ICompanyRepository companyRepository, 
+            IEvaluationRepository evaluationRepository)
         {
             _userRepository = userRepository;
             _inspectionRepository = inspectionRepository;
             _companyRepository = companyRepository;
+            _evaluationRepository = evaluationRepository;
         }
 
         public async Task<InspectionModel> CreateInspection(Guid contractorId, Guid userId)
@@ -89,6 +96,16 @@ namespace BizRules.InspectionBizRules
         public async Task DeleteDocument(Guid documentId)
         {
             await _inspectionRepository.DeleteDocument(documentId);
+        }
+
+        public async Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive)
+        {
+            return await _evaluationRepository.GetEvaluations(inspectionId, take, skip, onlySet, positive);
+        }
+
+        public async Task SetEvaluation(Guid inspectionId, int reqId, double? score)
+        {
+            await _evaluationRepository.SetEvaluation(inspectionId, reqId, score);
         }
     }
 }

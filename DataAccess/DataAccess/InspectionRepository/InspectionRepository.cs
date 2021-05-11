@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
 using Common.Models;
@@ -20,13 +19,21 @@ namespace DataAccess.DataAccess.InspectionRepository
             {
                 var inspection = new Inspection
                 {
-                    Id = new Guid(), 
+                    Id = Guid.NewGuid(), 
                     ContractorId = contractorId, 
                     CustomerId = customerId, 
-                    Status = InspectionStatus.New
+                    Status = InspectionStatus.New,
+                    Evaluations = new List<Evaluation>()
                 };
 
                 context.Inspections.Add(inspection);
+
+                await context.Requirements.ForEachAsync(x => inspection.Evaluations.Add(new Evaluation
+                {
+                    InspectionId = inspection.Id,
+                    RequirementId = x.Id,
+                    Score = null
+                }));
 
                 await context.SaveChangesAsync();
 
@@ -67,7 +74,7 @@ namespace DataAccess.DataAccess.InspectionRepository
             using (var context = new ISControlDbContext())
             {
                 var inspection = await context.Inspections
-                    .Include(x => x.Contractor.Employees)
+                    .Include(x => x.Assessors)
                     .Include(x => x.Schedule)
                     .FirstOrDefaultAsync(x => x.Id == inspectionId);
 

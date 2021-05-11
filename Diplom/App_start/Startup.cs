@@ -14,6 +14,7 @@ using BizRules.InspectionBizRules;
 using BizRules.UsersBizRules;
 using DataAccess;
 using DataAccess.DataAccess.CompanyRepository;
+using DataAccess.DataAccess.EvaluationRepository;
 using DataAccess.DataAccess.InspectionRepository;
 using DataAccess.DataAccess.TokenRepository;
 using DataAccess.DataAccess.UserRepository;
@@ -63,6 +64,7 @@ namespace Diplom
             services.AddSingleton<ICompanyRepository, CompanyRepository>();
             services.AddSingleton<IInspectionBizRules, InspectionBizRules>();
             services.AddSingleton<IInspectionRepository, InspectionRepository>();
+            services.AddSingleton<IEvaluationRepository, EvaluationRepository>();
         }
 
         private void ConfigureOAuth(IAppBuilder app, DefaultDependencyResolver resolver)
