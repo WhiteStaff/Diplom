@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common.Models;
 using Common.Models.Enums;
 
 namespace Models
@@ -19,5 +20,7 @@ namespace Models
         public InspectionStatus Status { get; set; }
 
         public List<UserModel> Assessors { get; set; }
+
+        public List<EventModel> Schedule { get; set; }
     }
 }

@@ -56,13 +56,13 @@
     <Compile Include="Models\Enums\UserRole.cs" />
     <Compile Include="Models\InspectionModel.cs" />
     <Compile Include="Models\Mappers\CompanyMapper.cs" />
-    <Compile Include="Models\Mappers\InspectionMapper.cs" />
     <Compile Include="Models\Mappers\UserMapper.cs" />
     <Compile Include="Models\Page.cs" />
     <Compile Include="Models\RequestModels\CreateCompanyRequest.cs" />
     <Compile Include="Models\RequestModels\CreateInspectionDocumentRequest.cs" />
-    <Compile Include="Models\RequestModels\CreateInspectionRequest.cs" />
     <Compile Include="Models\RequestModels\CreateUserRequest.cs" />
+    <Compile Include="Models\EventModel.cs" />
+    <Compile Include="Models\RequestModels\StartInspectionRequest.cs" />
     <Compile Include="Models\UserFullModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\UserModel.cs" />

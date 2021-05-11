@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Models;
+using Common.Models.Enums;
 using DataAccess.DbModels;
 using DataAccess.Mappers;
 using Models;
@@ -14,11 +18,13 @@ namespace DataAccess.DataAccess.InspectionRepository
         {
             using (var context = new ISControlDbContext())
             {
-                //var inspection = contractorId.Map();
-                //var assessorIds = inspection.Assessors.Select(x => x.Id);
-                //inspection.Assessors = context.Employees.Where(x => assessorIds.Contains(x.Id)).ToList();
-
-                var inspection = new Inspection { Id = new Guid(), ContractorId = contractorId, CustomerId = customerId };
+                var inspection = new Inspection
+                {
+                    Id = new Guid(), 
+                    ContractorId = contractorId, 
+                    CustomerId = customerId, 
+                    Status = InspectionStatus.New
+                };
 
                 context.Inspections.Add(inspection);
 
@@ -28,11 +34,96 @@ namespace DataAccess.DataAccess.InspectionRepository
             }
         }
 
+        public async Task<InspectionModel> StartInspection(Guid inspectionId, List<Guid> assessorIds)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var inspection = await context.Inspections.Include(x => x.Contractor.Employees).FirstOrDefaultAsync(x => x.Id == inspectionId);
+
+                if (inspection == null)
+                {
+                    throw new Exception("Inspection not found.");
+                }
+
+                if (inspection.Status != InspectionStatus.New)
+                {
+                    throw new Exception("Cannot change inspection.");
+                }
+
+                inspection.Assessors = inspection.Contractor.Employees
+                    .Where(x => x.Role == UserRole.User && assessorIds.Contains(x.Id)).ToList();
+
+                inspection.StartDate = DateTime.Now;
+                inspection.Status = InspectionStatus.InProgress;
+
+                await context.SaveChangesAsync();
+
+                return inspection.Map();
+            }
+        }
+
+        public async Task<InspectionModel> GetInspection(Guid inspectionId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var inspection = await context.Inspections
+                    .Include(x => x.Contractor.Employees)
+                    .Include(x => x.Schedule)
+                    .FirstOrDefaultAsync(x => x.Id == inspectionId);
+
+                if (inspection == null)
+                {
+                    throw new Exception("Inspection not found.");
+                }
+
+                return inspection.Map();
+            }
+        }
+
+        public async Task<List<EventModel>> AddInspectionEvent(Guid inspectionId, EventModel eventModel)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var inspection = await context.Inspections
+                    .Include(x => x.Schedule)
+                    .FirstOrDefaultAsync(x => x.Id == inspectionId);
+
+                if (inspection == null)
+                {
+                    throw new Exception("Inspection not found.");
+                }
+
+                inspection.Schedule.Add(eventModel.Map());
+
+                await context.SaveChangesAsync();
+
+                return inspection.Schedule.OrderBy(x => x.Date).ToList().Select(x => x.Map()).ToList();
+            }
+        }
+
+        public async Task<List<EventModel>> DeleteInspectionEvent(Guid inspectionId, Guid eventId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var e = context.Events.FirstOrDefault(x => x.Id == eventId);
+
+                if (e != null)
+                {
+                    context.Events.Remove(e);
+
+                    await context.SaveChangesAsync();
+                }
+
+                return context.Events.Where(x => x.InspectionId == inspectionId).OrderBy(x => x.Date).ToList().Select(x => x.Map()).ToList();
+            }
+        }
+
         public async Task AddInspectionDocument(Guid inspectionId, string documentName, byte[] document)
         {
             using (var context = new ISControlDbContext())
             {
-                var inspection = context.Inspections.Include(x => x.Documents).FirstOrDefault(x => x.Id == inspectionId);
+                var inspection = context.Inspections.Include(x => x.Documents)
+                    .FirstOrDefault(x => x.Id == inspectionId);
 
                 if (inspection == null)
                 {

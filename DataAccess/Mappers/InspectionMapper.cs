@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using Common.Models;
 using DataAccess.DbModels;
 using Models;
 
@@ -15,7 +17,9 @@ namespace DataAccess.Mappers
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 FinalScore = model.FinalScore,
-                Assessors = model.Assessors.Select(x => x.Map()).ToList()
+                Status = model.Status,
+                Assessors = model.Assessors.ToList().Select(x => x.Map()).ToList(),
+                Schedule = model.Schedule.OrderBy(x => x.Date).ToList().Select(x => x.Map()).ToList()
             };
         }
 
@@ -29,6 +33,26 @@ namespace DataAccess.Mappers
                 EndDate = model.EndDate,
                 FinalScore = model.FinalScore,
                 Assessors = model.Assessors.Select(x => x.Map()).ToList()
+            };
+        }
+
+        public static EventModel Map(this Event model)
+        {
+            return new EventModel
+            {
+                Id = model.Id,
+                Date = model.Date,
+                Description = model.Description
+            };
+        }
+
+        public static Event Map(this EventModel model)
+        {
+            return new Event
+            {
+                Id = model.Id == default ? Guid.NewGuid() : model.Id,
+                Date = model.Date,
+                Description = model.Description
             };
         }
     }

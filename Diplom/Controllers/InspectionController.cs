@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 using BizRules.InspectionBizRules;
+using Common.Models;
 using Common.Models.Enums;
 using Common.Models.RequestModels;
-using Models;
 using OAuth;
 
 namespace Diplom.Controllers
@@ -33,6 +33,59 @@ namespace Diplom.Controllers
                 var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
 
                 return await _inspectionBizRules.CreateInspection(contractorId,  userId);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("start/{inspectionId}")]
+        [JwtAuthorize(UserRole.CompanyAdmin, UserRole.User)]
+        public async Task<object> StartInspection(Guid inspectionId, [FromBody] StartInspectionRequest request)
+        {
+            try
+            {
+                return await _inspectionBizRules.StartInspection(inspectionId, request.AssessorIds);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("{inspectionId}")]
+        public async Task<object> GetInspection(Guid inspectionId)
+        {
+            try
+            {
+                return await _inspectionBizRules.GetInspection(inspectionId);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpPost, Route("{inspectionId}/addEvent")]
+        public async Task<object> AddInspectionEvent(Guid inspectionId, [FromBody] EventModel model)
+        {
+            try
+            {
+                return await _inspectionBizRules.AddEvent(inspectionId, model);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpDelete, Route("{inspectionId}/deleteEvent")]
+        public async Task<object> GetInspection(Guid inspectionId, [FromUri] Guid eventId)
+        {
+            try
+            {
+                return await _inspectionBizRules.DeleteEvent(inspectionId, eventId);
             }
             catch (Exception e)
             {

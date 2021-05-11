@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Common.Models;
 using Common.Models.RequestModels;
 using Models;
 
@@ -8,6 +10,14 @@ namespace BizRules.InspectionBizRules
     public interface IInspectionBizRules
     {
         Task<InspectionModel> CreateInspection(Guid contractorId, Guid userId);
+
+        Task<InspectionModel> StartInspection(Guid inspectionId, List<Guid> assessorIds);
+
+        Task<InspectionModel> GetInspection(Guid inspectionId);
+
+        Task<List<EventModel>> AddEvent(Guid inspectionId, EventModel model);
+
+        Task<List<EventModel>> DeleteEvent(Guid inspectionId, Guid eventId);
 
         Task AddInspectionDocument(CreateInspectionDocumentRequest request);
 

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Common.Models;
 using Models;
 
 namespace DataAccess.DataAccess.InspectionRepository
@@ -7,6 +9,14 @@ namespace DataAccess.DataAccess.InspectionRepository
     public interface IInspectionRepository
     {
         Task<InspectionModel> CreateInspection(Guid contractorId, Guid customerId);
+
+        Task<InspectionModel> StartInspection(Guid inspectionId, List<Guid> assessorIds);
+
+        Task<InspectionModel> GetInspection(Guid inspectionId);
+
+        Task<List<EventModel>> AddInspectionEvent(Guid inspectionId, EventModel eventModel);
+
+        Task<List<EventModel>> DeleteInspectionEvent(Guid inspectionId, Guid eventId);
 
         Task AddInspectionDocument(Guid inspectionId, string documentName, byte[] document);
 

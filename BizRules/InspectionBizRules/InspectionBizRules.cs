@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Common.Models;
 using Common.Models.Enums;
 using Common.Models.Mappers;
 using Common.Models.RequestModels;
@@ -46,6 +48,26 @@ namespace BizRules.InspectionBizRules
             }
 
             return await _inspectionRepository.CreateInspection(contractorId, customer.Id);
+        }
+
+        public async Task<InspectionModel> StartInspection(Guid inspectionId, List<Guid> assessorIds)
+        {
+            return await _inspectionRepository.StartInspection(inspectionId, assessorIds);
+        }
+
+        public async Task<InspectionModel> GetInspection(Guid inspectionId)
+        {
+            return await _inspectionRepository.GetInspection(inspectionId);
+        }
+
+        public async Task<List<EventModel>> AddEvent(Guid inspectionId, EventModel model)
+        {
+            return await _inspectionRepository.AddInspectionEvent(inspectionId, model);
+        }
+
+        public async Task<List<EventModel>> DeleteEvent(Guid inspectionId, Guid eventId)
+        {
+            return await _inspectionRepository.DeleteInspectionEvent(inspectionId, eventId);
         }
 
         public async Task AddInspectionDocument(CreateInspectionDocumentRequest request)
