@@ -19,12 +19,12 @@ namespace DataAccess.DataAccess.EvaluationRepository
         {
             using (var context = new ISControlDbContext())
             {
-                var scores = context.Inspections
+                var evaluations = context.Inspections
                     .AsQueryable()
                     .Include(x => x.Evaluations)
                     .First(x => x.Id == inspectionId)
                     .Evaluations
-                    .ToDictionary(x => x.RequirementId, x => x.Score);
+                    .ToDictionary(x => x.RequirementId, x => x);
 
                 Func<RequirementModel, bool> where = null;
                 if (onlySet != null)
@@ -68,7 +68,9 @@ namespace DataAccess.DataAccess.EvaluationRepository
                             Id = r.Id,
                             Description = r.Description,
                             PossibleScores = r.PossibleScores.Split(';')
-                                .Select(s => Convert.ToDouble(s, CultureInfo.InvariantCulture)).ToArray()
+                                .Select(s => Convert.ToDouble(s, CultureInfo.InvariantCulture)).ToArray(),
+                            Score = evaluations[r.Id].Score,
+                            EvaluationDescription = evaluations[r.Id].Description
                         }).Where(where).ToList()
                     }).ToList()
                     .Where(x => x.Requirements.Any())

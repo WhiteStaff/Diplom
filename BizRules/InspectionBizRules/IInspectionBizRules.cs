@@ -35,5 +35,11 @@ namespace BizRules.InspectionBizRules
         Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status);
 
         Task ApproveInspection(Guid userId, Guid inspectionId);
+
+        Task<byte[]> GenerateFirstForm(Guid inspectionId);
+
+        Task<byte[]> GenerateSecondForm(Guid inspectionId);
+
+        Task<string> ResolveFormName(Guid inspectionId, string formNumber);
     }
 }

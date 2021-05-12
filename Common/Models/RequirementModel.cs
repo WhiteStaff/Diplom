@@ -9,5 +9,7 @@
         public double[] PossibleScores { get; set; }
 
         public double? Score { get; set; }
+
+        public string EvaluationDescription { get; set; }
     }
 }

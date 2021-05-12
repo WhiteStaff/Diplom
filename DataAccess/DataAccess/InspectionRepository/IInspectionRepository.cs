@@ -32,5 +32,9 @@ namespace DataAccess.DataAccess.InspectionRepository
         Task<Page<InspectionModel>> GetCompanyActiveInspections(Guid companyId, int take, int skip);
 
         Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status);
+
+        Task SetInspectionFinalScore(Guid inspectionId, Score score);
+
+        Task ApproveInspection(Guid userId, Guid inspectionId);
     }
 }

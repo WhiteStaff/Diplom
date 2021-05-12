@@ -206,5 +206,35 @@ namespace Diplom.Controllers
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
             }
         }
+
+        [HttpGet, Route("{inspectionId}/genericDocument/first")]
+        public async Task<object> GetFirstDocument(Guid inspectionId)
+        {
+            try
+            {
+                var file = await _inspectionBizRules.GenerateFirstForm(inspectionId);
+                var fileName = await _inspectionBizRules.ResolveFormName(inspectionId, "1");
+                return FileContent(fileName, file);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpGet, Route("{inspectionId}/genericDocument/second")]
+        public async Task<object> GetSecondDocument(Guid inspectionId)
+        {
+            try
+            {
+                var file = await _inspectionBizRules.GenerateSecondForm(inspectionId);
+                var fileName = await _inspectionBizRules.ResolveFormName(inspectionId, "2");
+                return FileContent(fileName, file);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
     }
 }
