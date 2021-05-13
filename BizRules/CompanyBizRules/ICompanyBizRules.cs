@@ -13,5 +13,7 @@ namespace BizRules.CompanyBizRules
         Task<Page<CompanyModel>> GetCompanies(CompanyRole role, int take, int skip);
 
         Task DeleteCompany(Guid id);
+
+        Task<CompanyModel> GetCompany(Guid companyId);
     }
 }

@@ -7,7 +7,7 @@ namespace DataAccess.DataAccess.EvaluationRepository
 {
     public interface IEvaluationRepository
     {
-        Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive);
+        Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive, string name);
 
         Task SetEvaluation(Guid inspectionId, int requirementId, double? score, string description);
     }

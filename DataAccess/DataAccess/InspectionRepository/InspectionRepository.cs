@@ -84,6 +84,7 @@ namespace DataAccess.DataAccess.InspectionRepository
                 var inspection = await context.Inspections
                     .Include(x => x.Assessors.Select(e => e.Employee))
                     .Include(x => x.Schedule)
+                    .Include(x => x.Documents)
                     .FirstOrDefaultAsync(x => x.Id == inspectionId);
 
                 if (inspection == null)
@@ -308,6 +309,28 @@ namespace DataAccess.DataAccess.InspectionRepository
                 }
 
                 await context.SaveChangesAsync();
+            }
+        }
+
+        public async Task<Guid> GetLastOrderedCompanyInspectionId(Guid companyId)
+        {
+            using (var context = new ISControlDbContext())
+            {
+                var company = await context.Companies.AsQueryable().Include(x => x.OrderedInspections)
+                    .FirstAsync(x => x.Id == companyId);
+
+                if (!company.OrderedInspections.Any())
+                {
+                    return new Guid();
+                }
+
+                if (company.OrderedInspections.FirstOrDefault(x => x.EndDate == null) != null)
+                {
+                    return company.OrderedInspections.First(x => x.EndDate == null).Id;
+                }
+
+                return company.OrderedInspections.OrderByDescending(x => x.EndDate).FirstOrDefault()?.Id ?? new Guid();
+                
             }
         }
     }

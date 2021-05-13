@@ -36,5 +36,7 @@ namespace DataAccess.DataAccess.InspectionRepository
         Task SetInspectionFinalScore(Guid inspectionId, Score score);
 
         Task ApproveInspection(Guid userId, Guid inspectionId);
+
+        Task<Guid> GetLastOrderedCompanyInspectionId(Guid companyId);
     }
 }

@@ -32,5 +32,10 @@ namespace BizRules.CompanyBizRules
         {
             await _companyRepository.DeleteCompany(id);
         }
+
+        public async Task<CompanyModel> GetCompany(Guid companyId)
+        {
+            return await _companyRepository.GetCompany(companyId);
+        }
     }
 }

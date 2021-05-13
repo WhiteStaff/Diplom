@@ -61,5 +61,18 @@ namespace Diplom.Controllers
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
             }
         }
+
+        [HttpGet, Route("{id}")]
+        public async Task<object> GetCompany(Guid id)
+        { 
+            try
+            {
+                return await _companyBizRules.GetCompany(id);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
     }
 }

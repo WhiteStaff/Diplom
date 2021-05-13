@@ -15,7 +15,7 @@ namespace DataAccess.DataAccess.EvaluationRepository
             int take,
             int skip,
             bool? onlySet,
-            bool? positive)
+            bool? positive, string name)
         {
             using (var context = new ISControlDbContext())
             {
@@ -27,6 +27,7 @@ namespace DataAccess.DataAccess.EvaluationRepository
                     .ToDictionary(x => x.RequirementId, x => x);
 
                 Func<RequirementModel, bool> where = null;
+                Func<RequirementModel, bool> whereName = model => model.Id > 0;
                 if (onlySet != null)
                 {
                     if (!onlySet.Value)
@@ -54,6 +55,11 @@ namespace DataAccess.DataAccess.EvaluationRepository
                     where = model => model.Id >= 1;
                 }
 
+                if (!string.IsNullOrEmpty(name))
+                {
+                    whereName = model => model.Description.ToLower().Contains(name.ToLower());
+                }
+
                 var categories = context.Categories
                     .AsQueryable()
                     .Include(x => x.Requirements).ToList()
@@ -71,7 +77,10 @@ namespace DataAccess.DataAccess.EvaluationRepository
                                 .Select(s => Convert.ToDouble(s, CultureInfo.InvariantCulture)).ToArray(),
                             Score = evaluations[r.Id].Score,
                             EvaluationDescription = evaluations[r.Id].Description
-                        }).Where(where).ToList()
+                        })
+                        .Where(where)
+                        .Where(whereName)
+                        .ToList()
                     }).ToList()
                     .Where(x => x.Requirements.Any())
                     .ToList();

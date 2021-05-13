@@ -101,9 +101,9 @@ namespace BizRules.InspectionBizRules
             await _inspectionRepository.DeleteDocument(documentId);
         }
 
-        public async Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive)
+        public async Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive, string name)
         {
-            return await _evaluationRepository.GetEvaluations(inspectionId, take, skip, onlySet, positive);
+            return await _evaluationRepository.GetEvaluations(inspectionId, take, skip, onlySet, positive, name);
         }
 
         public async Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description) 
@@ -122,7 +122,7 @@ namespace BizRules.InspectionBizRules
             await _inspectionRepository.UpdateInspectionStatus(inspectionId, status);
             if (status == InspectionStatus.Finished)
             {
-                var inspectionEvaluations = (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null)).Items;
+                var inspectionEvaluations = (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null, null)).Items;
                 var score = ResolveScore(Math.Min(CalculateFirstCompositeIndex(inspectionEvaluations), CalculateSecondCompositeIndex(inspectionEvaluations)));
                 await _inspectionRepository.SetInspectionFinalScore(inspectionId, score);
             }
@@ -135,7 +135,7 @@ namespace BizRules.InspectionBizRules
 
         public async Task<byte[]> GenerateFirstForm(Guid inspectionId)
         {
-            var tableLines =  (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null))
+            var tableLines =  (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null, null))
                 .Items
                 .SelectMany(x => x.Requirements)
                 .Select(x => new FirstFormTableLine
@@ -151,7 +151,7 @@ namespace BizRules.InspectionBizRules
 
         public async Task<byte[]> GenerateSecondForm(Guid inspectionId)
         {
-            var inspectionEvaluations = (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null)).Items;
+            var inspectionEvaluations = (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null, null)).Items;
             var lines = new List<(string, string)>
             {
                 ("Обобщающий показатель 1", CalculateFirstCompositeIndex(inspectionEvaluations).ToString()),
@@ -166,6 +166,19 @@ namespace BizRules.InspectionBizRules
             var inspection = await GetInspection(inspectionId);
 
             return $"Инсп{inspection.StartDate.Value:d}_Форма_{formNumber}_{DateTime.Now:d}.docx";
+        }
+
+        public async Task<InspectionModel> GetLastOrderedInspection(Guid userId)
+        {
+            var companyId = _userRepository.GetUser(userId).CompanyId.Value;
+            var inspectionId = await _inspectionRepository.GetLastOrderedCompanyInspectionId(companyId);
+
+            if (inspectionId == new Guid())
+            {
+                return null;
+            }
+
+            return await _inspectionRepository.GetInspection(inspectionId);
         }
 
         private double CalculateFirstCoefficient(List<CategoryModel> evaluations)

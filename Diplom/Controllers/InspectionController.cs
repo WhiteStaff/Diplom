@@ -153,7 +153,7 @@ namespace Diplom.Controllers
         {
             try
             {
-                return await _inspectionBizRules.GetEvaluations(inspectionId, request.Take, request.Skip, request.OnlySet, request.Positive);
+                return await _inspectionBizRules.GetEvaluations(inspectionId, request.Take, request.Skip, request.OnlySet, request.Positive, request.Name);
             }
             catch (Exception e)
             {
@@ -230,6 +230,21 @@ namespace Diplom.Controllers
                 var file = await _inspectionBizRules.GenerateSecondForm(inspectionId);
                 var fileName = await _inspectionBizRules.ResolveFormName(inspectionId, "2");
                 return FileContent(fileName, file);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
+
+        [HttpGet, Route("last")]
+        public async Task<object> GetLastInspection()
+        {
+            try
+            {
+                var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                return await _inspectionBizRules.GetLastOrderedInspection(userId);
             }
             catch (Exception e)
             {

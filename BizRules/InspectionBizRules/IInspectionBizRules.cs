@@ -28,7 +28,7 @@ namespace BizRules.InspectionBizRules
 
         Task DeleteDocument(Guid documentId);
 
-        Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive);
+        Task<Page<CategoryModel>> GetEvaluations(Guid inspectionId, int take, int skip, bool? onlySet, bool? positive, string name);
 
         Task SetEvaluation(Guid inspectionId, int reqId, double? score, string description);
 
@@ -41,5 +41,7 @@ namespace BizRules.InspectionBizRules
         Task<byte[]> GenerateSecondForm(Guid inspectionId);
 
         Task<string> ResolveFormName(Guid inspectionId, string formNumber);
+
+        Task<InspectionModel> GetLastOrderedInspection(Guid userId);
     }
 }

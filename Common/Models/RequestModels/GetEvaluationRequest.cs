@@ -13,5 +13,7 @@ namespace Common.Models.RequestModels
         public bool? OnlySet { get; set; }
 
         public bool? Positive { get; set; }
+
+        public string Name { get; set; }
     }
 }
