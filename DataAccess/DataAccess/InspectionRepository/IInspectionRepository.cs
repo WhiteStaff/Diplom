@@ -33,7 +33,7 @@ namespace DataAccess.DataAccess.InspectionRepository
 
         Task UpdateInspectionStatus(Guid inspectionId, InspectionStatus status);
 
-        Task SetInspectionFinalScore(Guid inspectionId, Score score);
+        Task SetInspectionFinalScore(Guid inspectionId, Score score, double digitScore);
 
         Task ApproveInspection(Guid userId, Guid inspectionId);
 

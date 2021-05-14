@@ -277,13 +277,14 @@ namespace DataAccess.DataAccess.InspectionRepository
             }
         }
 
-        public async Task SetInspectionFinalScore(Guid inspectionId, Score score)
+        public async Task SetInspectionFinalScore(Guid inspectionId, Score score, double digitScore)
         {
             using (var context = new ISControlDbContext())
             {
                 var inspection = await context.Inspections.FirstAsync(x => x.Id == inspectionId);
                 inspection.FinalScore = score;
                 inspection.EndDate = DateTime.Now;
+                inspection.FinalDigitScore = digitScore;
                 await context.SaveChangesAsync();
             }
         }

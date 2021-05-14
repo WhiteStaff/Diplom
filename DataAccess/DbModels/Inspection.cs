@@ -29,6 +29,8 @@ namespace DataAccess.DbModels
 
         public Score? FinalScore { get; set; }
 
+        public double? FinalDigitScore { get; set; }
+
         public IList<EmployeeInspection> Assessors { get; set; }
 
         public IList<Event> Schedule { get; set; }

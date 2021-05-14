@@ -19,6 +19,8 @@ namespace Models
 
         public InspectionStatus Status { get; set; }
 
+        public double? FinalDigitScore { get; set; }
+
         public List<UserModel> Assessors { get; set; }
 
         public List<EventModel> Schedule { get; set; }

@@ -17,6 +17,7 @@ namespace DataAccess.Mappers
                 StartDate = model.StartDate,
                 EndDate = model.EndDate,
                 FinalScore = model.FinalScore,
+                FinalDigitScore = model.FinalDigitScore,
                 Status = model.Status,
                 Assessors = model.Assessors?.Select(x => x.Employee)?.ToList()?.Select(x => x.Map())?.ToList(),
                 Schedule = model.Schedule?.OrderBy(x => x.Date)?.ToList()?.Select(x => x.Map())?.ToList(),

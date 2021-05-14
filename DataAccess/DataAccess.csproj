@@ -141,6 +141,10 @@
     <Compile Include="Migrations\202105111458377_AddEmployeeInspectionTable.designer.cs">
       <DependentUpon>202105111458377_AddEmployeeInspectionTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202105141230137_AddDigitScoreColumn.cs" />
+    <Compile Include="Migrations\202105141230137_AddDigitScoreColumn.designer.cs">
+      <DependentUpon>202105141230137_AddDigitScoreColumn.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -199,6 +203,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202105111458377_AddEmployeeInspectionTable.resx">
       <DependentUpon>202105111458377_AddEmployeeInspectionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202105141230137_AddDigitScoreColumn.resx">
+      <DependentUpon>202105141230137_AddDigitScoreColumn.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
