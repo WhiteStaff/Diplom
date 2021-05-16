@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using BizRules.UsersBizRules;
 using Common.Models;
 using Common.Models.Enums;
 using Common.Models.RequestModels;
@@ -23,17 +24,20 @@ namespace BizRules.InspectionBizRules
         private readonly IInspectionRepository _inspectionRepository;
         private readonly ICompanyRepository _companyRepository;
         private readonly IEvaluationRepository _evaluationRepository;
+        private readonly IUsersBizRules _usersBizRules;
 
         public InspectionBizRules(
             IUserRepository userRepository, 
             IInspectionRepository inspectionRepository, 
             ICompanyRepository companyRepository, 
-            IEvaluationRepository evaluationRepository)
+            IEvaluationRepository evaluationRepository, 
+            IUsersBizRules usersBizRules)
         {
             _userRepository = userRepository;
             _inspectionRepository = inspectionRepository;
             _companyRepository = companyRepository;
             _evaluationRepository = evaluationRepository;
+            _usersBizRules = usersBizRules;
         }
 
         public async Task<InspectionModel> CreateInspection(Guid contractorId, Guid userId)
@@ -123,8 +127,10 @@ namespace BizRules.InspectionBizRules
             if (status == InspectionStatus.Finished)
             {
                 var inspectionEvaluations = (await GetEvaluations(inspectionId, int.MaxValue, 0, null, null, null)).Items;
-                var score = ResolveScore(Math.Min(CalculateFirstCompositeIndex(inspectionEvaluations), CalculateSecondCompositeIndex(inspectionEvaluations)));
-                await _inspectionRepository.SetInspectionFinalScore(inspectionId, score);
+                var digitScore = Math.Min(CalculateFirstCompositeIndex(inspectionEvaluations),
+                    CalculateSecondCompositeIndex(inspectionEvaluations));
+                var score = ResolveScore(digitScore);
+                await _inspectionRepository.SetInspectionFinalScore(inspectionId, score, digitScore);
             }
         }
 
@@ -179,6 +185,13 @@ namespace BizRules.InspectionBizRules
             }
 
             return await _inspectionRepository.GetInspection(inspectionId);
+        }
+
+        public async Task<Score?> PredictFinalScore(Guid userId)
+        {
+            var inspectionsScores = (await _usersBizRules.GetMyInspections(userId, 1000, 0)).Items.Select(x => x.FinalDigitScore).Select(x => x.Value).ToList();
+            var prediction = PredictDigitScore(inspectionsScores);
+            return prediction == null ? (Score?) null : ResolveScore(prediction.Value);
         }
 
         private double CalculateFirstCoefficient(List<CategoryModel> evaluations)
@@ -451,6 +464,28 @@ namespace BizRules.InspectionBizRules
             tr.Append(tc2);
 
             return tr;
+        }
+
+        private double? PredictDigitScore(List<double> scores)
+        {
+            if (scores.Count <= 3)
+            {
+                return null;
+            }
+
+            var alpha = 0.5;
+            var sma = (scores[0] + scores[1] + scores[2]) / 3;
+            var ema = alpha * scores[3] + (1 - alpha) * sma;
+
+            if (scores.Count > 4)
+            {
+                for (var i = 4; i < scores.Count; i++)
+                {
+                    ema = alpha * scores[i] + (1 - alpha) * ema;
+                }
+            }
+
+            return ema;
         }
     }
 }

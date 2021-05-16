@@ -43,5 +43,7 @@ namespace BizRules.InspectionBizRules
         Task<string> ResolveFormName(Guid inspectionId, string formNumber);
 
         Task<InspectionModel> GetLastOrderedInspection(Guid userId);
+
+        Task<Score?> PredictFinalScore(Guid userId);
     }
 }

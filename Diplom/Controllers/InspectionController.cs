@@ -251,5 +251,20 @@ namespace Diplom.Controllers
                 return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
             }
         }
+
+        [HttpGet, Route("predict")]
+        public async Task<object> GertPrediction()
+        {
+            try
+            {
+                var userId = new Guid((HttpContext.Current.User.Identity as ClaimsIdentity).FindFirst(ClaimTypes.NameIdentifier).Value);
+
+                return await _inspectionBizRules.PredictFinalScore(userId);
+            }
+            catch (Exception e)
+            {
+                return Request.CreateResponse(HttpStatusCode.ExpectationFailed, e.Message);
+            }
+        }
     }
 }
